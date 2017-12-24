@@ -1,3 +1,8 @@
+/**
+ * Muted tag
+ * Syntax:
+ *   {%__muted%}<markdown text>{%end__muted%}
+ */
 function m_wrap(ctx) {
     return function mutedTag(args, content) {
         var renderedText = ctx.render.renderSync({text: content, engine: 'markdown'});

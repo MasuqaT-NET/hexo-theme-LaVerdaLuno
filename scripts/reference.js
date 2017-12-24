@@ -1,3 +1,12 @@
+/**
+ * Reference tag
+ *
+ * Syntax:
+ *   {% __reference %}
+ *   + [Link](url)
+ *   ...
+ *   {% end__reference %}
+ */
 function r_wrap(ctx) {
     return function referenceTag(args, content) {
         const __ = ctx.theme.i18n.__(ctx.theme.i18n.languages); // i18n
