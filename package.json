@@ -2,6 +2,7 @@
   "name": "hexo-theme-LaVerdaLuno",
   "version": "0.0.1",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "katex": "^0.8.3",
     "titlecase": "^1.1.2"
