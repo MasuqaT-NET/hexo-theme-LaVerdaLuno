@@ -27,5 +27,5 @@ hexo.extend.filter.register('after_post_render', function (data) {
         $(this).addClass('post-' + omitLineClass);
     });
 
-    data.content = $.html();
+    data.content = $('body').html();
 });
