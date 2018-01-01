@@ -3,8 +3,8 @@ search: 検索
 tags: Tags
 tagcloud: Tag Cloud
 tweets: ツイート
-prev: 戻る
-next: 次へ
+prev: Prev
+next: Next
 comment: コメント
 archive_a: Archives
 archive_b: "アーカイブ: %s"
@@ -12,7 +12,7 @@ page: ページ %d
 recent_posts: Recent Posts
 newer: Next Article
 older: Previous Article
-share: 共有
+share: Share
 powered_by: Powered by
 rss_feed: RSSフィード
 category: カテゴリ
