@@ -25,3 +25,21 @@
     ul, ol, dl
       margin-left: 15px
       list-style: disc
+  .category-list-count
+    font-family: font-ui
+  .tag-list-count
+    font-family: font-ui
+  .archive-year-list-count
+    font-family: font-ui
+    & + .archive-month-list
+      display: none
+    &:after
+      content: '\f065'
+      font-family: font-icon
+    &.expanded
+      &:after
+        content: '\f066'
+      & + .archive-month-list
+        display: block
+        .archive-month-list-count
+          font-family: font-ui
