@@ -16,6 +16,10 @@ else
       list-style: disc
     ol
       list-style: decimal
+  li
+    margin: 5px 0
+    &:last-child
+      margin-bottom: 0
 
 .widget-title
   font-size: 1.2em !important
@@ -23,16 +27,48 @@ else
   padding: 0 0 0.5em
   border-bottom: 2px solid color-border
 
+.recent-posts-list-date
 .category-list-count
 .tag-list-count
-.archive-list-count
-  padding-left: 5px
+.archive-year-list-count
+.archive-month-list-count
+  font-family: font-ui
   color: color-grey
   font-size: 0.85em
+  padding-left: 5px
+
+.widget.recent-posts
+  li > a
+    display: block
+  .recent-posts-list-date
+    padding-left: 0
+
+.archive-year-list-count
+  & + .archive-month-list
+    display: none
+  &:after
+    content: '\f065'
+    font: (1 / 0.85em) font-icon
+    margin-left: 0.5em
+  &.expanded
+    &:after
+      content: '\f066'
+    & + .archive-month-list
+      display: block
+      .archive-month-list-count
+        font-family: font-ui
+
+.category-list-count
+.tag-list-count
   &:before
     content: "("
   &:after
     content: ")"
+
+.widget .archive-month-list
+  list-style: none
+  li
+    margin: 2px 0
 
 .tagcloud
   a
