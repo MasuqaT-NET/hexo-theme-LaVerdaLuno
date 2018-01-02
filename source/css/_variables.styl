@@ -12,9 +12,13 @@ color-pallet-accent = #189bf2
 // Colors
 color-default = #555
 color-grey = #999
-color-border = #ddd
+color-border = #ddd // TODO
+color-border-top = #ddd // TODO
+color-border-bottom = #ddd // TODO
+color-border-side = #ddd // TODO
+color-ui-content = lighten(color-pallet-content, 25%)
 color-link = color-pallet-accent
-color-background = #eee
+color-background = desaturate(lighten(color-pallet-accent, 85%), 80%)
 color-page-background = color-pallet-main
 color-sidebar-text = #777
 color-widget-border = #ccc
@@ -46,7 +50,7 @@ block-margin = 50px
 article-padding = 20px
 mobile-nav-width = 280px
 main-column = 9
-sidebar-column = 3
+sidebar-column = 4
 
 if sidebar and sidebar isnt bottom
   _sidebar-column = sidebar-column

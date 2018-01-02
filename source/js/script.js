@@ -62,7 +62,9 @@
                 '</div>'
             ].join('');
 
-            $('body').append($(html));
+            box = $(html);
+
+            $('body').append(box);
         }
 
         $('.article-share-box.on').hide();

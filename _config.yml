@@ -1,10 +1,9 @@
 # Header
 menu:
-  Home: /
-  Archives: /archives
   Profile: /profile
   About: /about
   Series: /series
+  Index: https://masuqat.net/
 rss: /atom.xml
 
 # Content
@@ -14,11 +13,10 @@ fancybox: true
 # Sidebar
 sidebar: right
 widgets:
-- category
-- tag
-- tagcloud
-- archive
 - recent_posts
+- archive
+- category
+- tagcloud
 
 # display widgets at the bottom of index pages (pagination == 2)
 index_widgets:

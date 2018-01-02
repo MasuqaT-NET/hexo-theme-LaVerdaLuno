@@ -3,29 +3,13 @@
 
 .article-inner
   @extend $block
+  background-image: none
   overflow: hidden
 
-.article-meta
-  clearfix()
-
-.article-date
-  @extend $block-caption
-  float: left
-
-.article-category
-  float: left
-  line-height: 1em
-  color: #ccc
-  margin-left: 8px
-  &:before
-    content: "\2022"
-
-.article-category-link
-  @extend $block-caption
-  margin: 0 12px 1em
-
+//region Article Header
 .article-header
-  padding: article-padding article-padding 0
+  margin: article-padding article-padding 0
+  border-bottom: 2px solid color-border-top
 
 .article-title
   text-decoration: none
@@ -36,6 +20,82 @@
   transition: color 0.2s
   a&:hover
     color: color-link
+
+.article-meta
+  clearfix()
+  margin: 1em 0
+  font-size: 0.85em
+  line-height: line-height
+  div, ul, li
+    line-height: 0
+  a
+    line-height: 1em
+
+.article-date
+  @extend $block-caption
+  float: left
+  margin: 0
+  &:hover
+    color: color-link
+
+.article-category
+  float: left
+  margin-left: 1em
+
+.article-category-link
+  @extend $block-caption
+  margin: 0
+  &:hover
+    color: color-link
+
+.article-share-link
+  @extend $block-caption
+  cursor: pointer
+  float: right
+  margin-left: 20px
+  margin-bottom: 0
+  &:hover
+    color: color-link
+  &:before
+    content: "\f064"
+    font-family: font-icon
+    padding-right: 6px
+
+.article-tag-list-item
+  float: left
+  &:first-child
+    margin-left: 1em
+  &:not(:first-child)
+    margin-left: 0.5em
+
+.article-tag-list-link
+  @extend $block-caption
+  margin: 0
+  letter-spacing: 0.5px
+  &:hover
+    color: color-link
+  &:before
+    content: "#"
+
+.article-comment-link
+  @extend $block-caption
+  float: right
+  &:before
+    content: "\f075"
+    font-family: font-icon
+    padding-right: 8px
+
+//endregion Article Header
+
+#more
+  display: block
+  border-bottom: 2px dashed color-border // TODO
+  margin-top: line-height
+  width: 100%
+  & + *:first-child
+    margin-top: line-height
+  & + h1:first-child, & + h2:first-child, & + h3:first-child, & + h4:first-child, & + h5:first-child, & + h6:first-child
+    margin-top: line-height-title
 
 .article-entry
   @extend $base-style
@@ -71,10 +131,10 @@
     border-spacing: 0
   th
     font-weight: bold
-    border-bottom: 3px solid color-border
+    border-bottom: 3px solid color-border-bottom
     padding-bottom: 0.5em
   td
-    border-bottom: 1px solid color-border
+    border-bottom: 1px solid color-border-bottom
     padding: 10px 0
   blockquote
     font-family: font-serif
@@ -129,8 +189,18 @@
       width: 100%
       height: 100%
       margin-top: 0
+  & > *:first-child
+    margin-top: line-height
+  & > h1:first-child, & > h2:first-child, & > h3:first-child, & > h4:first-child, & > h5:first-child, & > h6:first-child
+    margin-top: line-height-title
+  & > *:last-child
+    margin-bottom: line-height
+  & > h1:last-child, & > h2:last-child, & > h3:last-child, & > h4:last-child, & > h5:last-child, & > h6:last-child
+    margin-bottom: line-height-title
   span.muted
     opacity: 0.5
+  & > span.muted
+    display: block
   [class^="collection"]
     display: flex
     flex-wrap: wrap
@@ -177,54 +247,14 @@
   font-family: font-ui
   line-height: 1em
   padding: 6px 15px
-  border-radius: 15px
   background: color-background
-  color: color-grey
-  text-shadow: 0 1px #fff
+  color: color-ui-content
   text-decoration: none
   &:hover
     background: color-link
     color: color-pallet-background
     text-decoration: none
     text-shadow: 0 1px darken(color-link, 20%)
-
-.article-footer
-  clearfix()
-  font-size: 0.85em
-  line-height: line-height
-  border-top: 1px solid color-border
-  padding-top: line-height
-  margin: 0 article-padding article-padding
-  font-family: font-ui
-  a
-    color: color-grey
-    text-decoration: none
-    &:hover
-      color: color-default
-
-.article-tag-list-item
-  float: left
-  margin-right: 10px
-
-.article-tag-list-link
-  &:before
-    content: "#"
-
-.article-comment-link
-  float: right
-  &:before
-    content: "\f075"
-    font-family: font-icon
-    padding-right: 8px
-
-.article-share-link
-  cursor: pointer
-  float: right
-  margin-left: 20px
-  &:before
-    content: "\f064"
-    font-family: font-icon
-    padding-right: 6px
 
 #article-nav
   clearfix()
@@ -235,7 +265,7 @@
       absolute-center(8px)
       content: ""
       border-radius: 50%
-      background: color-border
+      background: color-border // TODO
       box-shadow: 0 1px 2px #fff
 
 .article-nav-link-wrap
@@ -265,7 +295,7 @@
 
 .article-nav-caption
   letter-spacing: 2px
-  color: color-border
+  color: color-border // TODO
   line-height: 1em
   font-family: font-ui
   #article-nav-newer &
@@ -296,14 +326,14 @@
   padding: 0 15px
   color: color-default
   outline: none
-  border: 1px solid color-border
+  border: 1px solid color-border // TODO
   border-radius: 3px 3px 0 0
   height: 36px
   line-height: 36px
 
 .article-share-links
   clearfix()
-  background: color-background
+  background: lighten(color-pallet-main, 50%)
 
 $article-share-link
   width: 50px
