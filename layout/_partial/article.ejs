@@ -11,7 +11,11 @@
             <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('comment') %></a>
           <% } %>
           <%- partial('post/tag') %>
-          <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" class="article-share-link"><%= __('share') %></a>
+          <%
+            var permalink = post.permalink.substr(post.permalink.length - 11) === "/index.html" ?
+                    post.permalink.substr(0, post.permalink.length - 11) + '/' : post.permalink;
+          %>
+          <a data-url="<%- permalink %>" data-id="<%= post._id %>" class="article-share-link"><%= __('share') %></a>
         </div>
       </header>
     <% } %>

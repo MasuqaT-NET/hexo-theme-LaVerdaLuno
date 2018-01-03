@@ -9,7 +9,7 @@
 //region Article Header
 .article-header
   margin: article-padding article-padding 0
-  border-bottom: 2px solid color-border-top
+  border-bottom: 2px solid color-separator
 
 .article-title
   text-decoration: none
@@ -89,7 +89,7 @@
 
 #more
   display: block
-  border-bottom: 2px dashed color-border // TODO
+  border-bottom: 2px dashed color-separator
   margin-top: line-height
   width: 100%
   & + *:first-child
@@ -131,10 +131,10 @@
     border-spacing: 0
   th
     font-weight: bold
-    border-bottom: 3px solid color-border-bottom
+    border-bottom: 3px solid color-border
     padding-bottom: 0.5em
   td
-    border-bottom: 1px solid color-border-bottom
+    border-bottom: 1px solid color-border
     padding: 10px 0
   blockquote
     font-family: font-serif
@@ -170,7 +170,7 @@
       margin-right: 0.5em
       margin-left: 1em
   .caption
-    color: color-grey
+    color: color-ui-content
     display: block
     font-size: 0.9em
     margin-top: 0.5em
@@ -243,11 +243,12 @@
       max-width: 100%
 
 .article-more-link a
+  @extend $depth-block
   display: inline-block
   font-family: font-ui
   line-height: 1em
   padding: 6px 15px
-  background: color-background
+  background: lighten(color-pallet-gray, 70%)
   color: color-ui-content
   text-decoration: none
   &:hover
@@ -265,18 +266,16 @@
       absolute-center(8px)
       content: ""
       border-radius: 50%
-      background: color-border // TODO
+      background: lighten(color-pallet-gray, 50%)
       box-shadow: 0 1px 2px #fff
 
 .article-nav-link-wrap
   text-decoration: none
-  color: color-grey
+  color: color-ui-content
   box-sizing: border-box
   margin-top: block-margin
   text-align: center
   display: block
-  &:hover
-    color: color-default
   @media mq-normal
     width: 50%
     margin-top: 0
@@ -295,8 +294,8 @@
 
 .article-nav-caption
   letter-spacing: 2px
-  color: color-border // TODO
-  line-height: 1em
+  color: color-ui-content
+  line-height: 0.85em
   font-family: font-ui
   #article-nav-newer &
     margin-right: -2px
@@ -305,12 +304,18 @@
   font-size: 0.85em
   line-height: line-height
   margin-top: 0.5em
+  color: lighten(color-ui-content, 20%)
+
+.article-nav-link-wrap:hover
+  .article-nav-caption
+  .article-nav-title
+    color: color-link
 
 .article-share-box
   position: absolute
   display: none
   background: color-pallet-background
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2)
+  box-shadow: depth-box-2
   border-radius: 3px
   margin-left: -145px
   overflow: hidden
@@ -324,9 +329,9 @@
   box-sizing: border-box
   font: 14px font-sans
   padding: 0 15px
-  color: color-default
+  color: color-pallet-content
   outline: none
-  border: 1px solid color-border // TODO
+  border: 1px solid color-pallet-background
   border-radius: 3px 3px 0 0
   height: 36px
   line-height: 36px
@@ -341,8 +346,8 @@ $article-share-link
   display: block
   float: left
   position: relative
-  color: #999
-  text-shadow: 0 1px #fff
+  color: color-pallet-gray
+  text-shadow: 0 1px white
   &:before
     font-size: 20px
     font-family: font-icon
@@ -357,7 +362,7 @@ $article-share-link
     content: "\f099"
   &:hover
     background: color-twitter
-    text-shadow: 0 1px daA
+    text-shadow: 0 1px darken(color-twitter, 20%)
 
 .article-share-facebook
   @extend $article-share-link
@@ -384,7 +389,7 @@ $article-share-link
     text-shadow: 0 1px darken(color-google, 20%)
 
 .article-gallery
-  background: #000
+  background: black
   position: relative
 
 .article-gallery-photos
@@ -410,7 +415,7 @@ $article-gallery-ctrl
   top: 0
   height: 100%
   width: 60px
-  color: #fff
+  color: white
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3)
   opacity: 0.3
   transition: opacity 0.2s

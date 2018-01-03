@@ -8,22 +8,16 @@ color-pallet-content = #2f4351
 color-pallet-main = #d3b789
 color-pallet-sub = #c65d57
 color-pallet-accent = #189bf2
+color-pallet-gray = #727a7f
 
 // Colors
-color-default = #555
-color-grey = #999
-color-border = #ddd // TODO
-color-border-top = #ddd // TODO
-color-border-bottom = #ddd // TODO
-color-border-side = #ddd // TODO
+color-separator = lighten(color-pallet-gray, 60%)
+color-border = lighten(color-pallet-gray, 50%)
 color-ui-content = lighten(color-pallet-content, 25%)
 color-link = color-pallet-accent
-color-background = desaturate(lighten(color-pallet-accent, 85%), 80%)
 color-page-background = color-pallet-main
-color-sidebar-text = #777
-color-widget-border = #ccc
-//color-footer-background = #262a30
-color-mobile-nav-background = #191919
+//color-mix-bg-gray = mix(color-pallet-background, color-pallet-gray)
+color-mix-bg-gray = #B4B7B7
 color-twitter = #00aced
 color-facebook = #3b5998
 color-pinterest = #cb2027
@@ -66,3 +60,8 @@ columns = main-column + _sidebar-column
 mq-mobile = "screen and (max-width: 479px)"
 mq-tablet = "screen and (min-width: 480px) and (max-width: 767px)"
 mq-normal = "screen and (min-width: 768px)"
+
+// for Depth
+depth-box = 0 1px 2px 0 rgba(0, 0, 0, 0.25)
+depth-box-2 = 0 1px 2px 0 rgba(0, 0, 0, 0.5)
+depth-text = 0 1px 2px rgba(0, 0, 0, 0.25)

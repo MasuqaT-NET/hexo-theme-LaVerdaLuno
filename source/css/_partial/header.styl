@@ -1,7 +1,7 @@
 #header
+  box-shadow: depth-box-2
   height: banner-height
   position: relative
-  border-bottom: 1px solid color-border-bottom
   &:before, &:after
     content: ""
     position: absolute
@@ -40,10 +40,10 @@ $logo-text
   text-decoration: none
   color: color-pallet-background
   font-weight: 300
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3)
 
 #logo
   @extend $logo-text
+  text-shadow: depth-text
   font-size: logo-size
   line-height: logo-size
   letter-spacing: 2px
@@ -136,12 +136,12 @@ $nav-link
   background: color-pallet-background
   padding: 5px 15px
   border-radius: 15px
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3)
+  box-shadow: depth-box-2
 
 .search-form-input
   border: none
   background: none
-  color: color-default
+  color: color-pallet-content
   width: 100%
   font: 13px font-sans
   outline: none
@@ -157,7 +157,7 @@ $nav-link
   font: 13px font-icon
   border: none
   background: none
-  color: #bbb
+  color: color-mix-bg-gray
   cursor: pointer
   &:hover, &:focus
-    color: #777
+    color: color-ui-content

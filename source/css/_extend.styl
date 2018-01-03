@@ -7,11 +7,13 @@ $block-caption
   line-height: 1em
   font-family: font-ui
 
-$block
-  background: url(sandpaper-url) lighten(color-pallet-main, 75%)
-  box-shadow: 1px 2px 3px #ddd
-  border: 1px solid color-border // TODO
+$depth-block
+  box-shadow: depth-box
   border-radius: 3px
+
+$block
+  @extend $depth-block
+  background: url(sandpaper-url) lighten(color-pallet-main, 75%)
 
 $base-style
   h1
@@ -26,9 +28,9 @@ $base-style
     font-size: 1em
   h6
     font-size: 1em
-    color: color-grey
+    color: lighten(color-pallet-content, 30%)
   hr
-    border: 1px dashed color-border // TODO
+    border: 1px dashed color-separator
   strong
     font-weight: bold
   em, cite
