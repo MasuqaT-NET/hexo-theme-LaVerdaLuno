@@ -22,6 +22,15 @@ body
   letter-spacing: 0.5px
   -webkit-text-size-adjust: 100%
 
+// couldn't merge these. bug on browser?
+::selection
+  background: color-pallet-accent
+  color: color-pallet-background
+
+::-moz-selection
+  background: color-pallet-accent
+  color: color-pallet-background
+
 .outer
   clearfix()
   max-width: (column-width + gutter-width) * columns + gutter-width

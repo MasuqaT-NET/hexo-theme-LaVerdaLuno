@@ -113,6 +113,7 @@
   a
     color: color-link
     text-decoration: none
+    text-shadow: link-shadow
     &:hover
       text-decoration: underline
   ul, ol, dl
@@ -225,13 +226,26 @@
       float: right
       margin-left: 10px
   .advent-calender
+    clearfix()
     margin: line-height 0
+    padding: 5px
+    background: lighten(color-pallet-sub, 75%)
     header
       text-align: center
+      font-size: 1.1em
+      margin-bottom: 5px
+      .day
+        margin-left: 0.5em
     .yesterday
-      text-align: left
+      float: left
+      display: inline-block
+      .day
+        margin-right: 0.5em
     .tomorrow
-      text-align: right
+      float: right
+      display: inline-block
+      .day
+        margin-right: 0.5em
   iframe.slideshare
     border: 1px solid #CCC
     margin-bottom: 5px
@@ -251,11 +265,11 @@
   background: lighten(color-pallet-gray, 70%)
   color: color-ui-content
   text-decoration: none
+  text-shadow: none
   &:hover
     background: color-link
     color: color-pallet-background
     text-decoration: none
-    text-shadow: 0 1px darken(color-link, 20%)
 
 #article-nav
   clearfix()
@@ -266,31 +280,36 @@
       absolute-center(8px)
       content: ""
       border-radius: 50%
-      background: lighten(color-pallet-gray, 50%)
-      box-shadow: 0 1px 2px #fff
+      background: color-pallet-gray
+      box-shadow: 0 1px 2px white
 
 .article-nav-link-wrap
+  @extend $block
   text-decoration: none
   color: color-ui-content
   box-sizing: border-box
   margin-top: block-margin
   text-align: center
-  display: block
+  opacity: 0.9
+  height: 90px
+  &:hover
+    opacity: 1.0
   @media mq-normal
-    width: 50%
+    width: 48%
     margin-top: 0
+    padding: 10px
 
 #article-nav-newer
   @media mq-normal
     float: left
     text-align: right
-    padding-right: 20px
+    margin-right: 10px
 
 #article-nav-older
   @media mq-normal
     float: right
     text-align: left
-    padding-left: 20px
+    margin-left: 10px
 
 .article-nav-caption
   letter-spacing: 2px
