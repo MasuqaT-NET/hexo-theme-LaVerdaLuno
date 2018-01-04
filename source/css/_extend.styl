@@ -1,19 +1,19 @@
 $block-caption
   text-decoration: none
-  text-transform: uppercase
-  letter-spacing: 2px
-  color: color-grey
+  letter-spacing: 1.5px
+  color: color-ui-content
   margin-bottom: 1em
   margin-left: 5px
   line-height: 1em
-  text-shadow: 0 1px #fff
-  font-weight: bold
+  font-family: font-ui
+
+$depth-block
+  box-shadow: depth-box
+  border-radius: 3px
 
 $block
-  background: #fff
-  box-shadow: 1px 2px 3px #ddd
-  border: 1px solid color-border
-  border-radius: 3px
+  @extend $depth-block
+  background: url(sandpaper-url) lighten(color-pallet-main, 75%)
 
 $base-style
   h1
@@ -28,9 +28,9 @@ $base-style
     font-size: 1em
   h6
     font-size: 1em
-    color: color-grey
+    color: lighten(color-pallet-content, 30%)
   hr
-    border: 1px dashed color-border
+    border: 1px dashed color-separator
   strong
     font-weight: bold
   em, cite

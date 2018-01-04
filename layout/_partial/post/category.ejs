@@ -1,8 +1,10 @@
-<% if (post.categories && post.categories.length){ %>
-  <div class="article-category">
+<% if (post.categories && post.categories.length){
+  var className = (typeof class_name === "undefined" ? 'article-category' : class_name);
+%>
+  <div class="<%- className %>">
     <%- list_categories(post.categories, {
       show_count: false,
-      class: 'article-category',
+      class: className,
       style: 'none',
       separator: '►'
     }) %>

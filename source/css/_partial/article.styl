@@ -3,45 +3,104 @@
 
 .article-inner
   @extend $block
+  background-image: none
   overflow: hidden
 
-.article-meta
-  clearfix()
-
-.article-date
-  @extend $block-caption
-  float: left
-
-.article-category
-  float: left
-  line-height: 1em
-  color: #ccc
-  text-shadow: 0 1px #fff
-  margin-left: 8px
-  &:before
-    content: "\2022"
-
-.article-category-link
-  @extend $block-caption
-  margin: 0 12px 1em
-
+//region Article Header
 .article-header
-  padding: article-padding article-padding 0
+  margin: article-padding article-padding 0
+  border-bottom: 2px solid color-separator
 
 .article-title
   text-decoration: none
   font-size: 2em
   font-weight: bold
-  color: color-default
+  color: color-pallet-content
   line-height: line-height-title
   transition: color 0.2s
   a&:hover
     color: color-link
 
+.article-meta
+  clearfix()
+  margin: 1em 0
+  font-size: 0.85em
+  line-height: line-height
+  div, ul, li
+    line-height: 0
+  a
+    line-height: 1em
+
+.article-date
+  @extend $block-caption
+  float: left
+  margin: 0
+  &:hover
+    color: color-link
+
+.article-category
+  float: left
+  margin-left: 1em
+
+.article-category-link
+  @extend $block-caption
+  margin: 0
+  &:hover
+    color: color-link
+
+.article-share-link
+  @extend $block-caption
+  cursor: pointer
+  float: right
+  margin-left: 20px
+  margin-bottom: 0
+  &:hover
+    color: color-link
+  &:before
+    content: "\f064"
+    font-family: font-icon
+    padding-right: 6px
+
+.article-tag-list-item
+  float: left
+  &:first-child
+    margin-left: 1em
+  &:not(:first-child)
+    margin-left: 0.5em
+
+.article-tag-list-link
+  @extend $block-caption
+  margin: 0
+  letter-spacing: 0.5px
+  &:hover
+    color: color-link
+  &:before
+    content: "#"
+
+.article-comment-link
+  @extend $block-caption
+  float: right
+  &:before
+    content: "\f075"
+    font-family: font-icon
+    padding-right: 8px
+
+//endregion Article Header
+
+#more
+  display: block
+  border-bottom: 2px dashed color-separator
+  margin-top: line-height
+  width: 100%
+  & + *:first-child
+    margin-top: line-height
+  & + h1:first-child, & + h2:first-child, & + h3:first-child, & + h4:first-child, & + h5:first-child, & + h6:first-child
+    margin-top: line-height-title
+
 .article-entry
   @extend $base-style
   clearfix()
-  color: color-default
+  color: color-pallet-content
   padding: 0 article-padding
   p, table
     line-height: line-height
@@ -54,6 +113,7 @@
   a
     color: color-link
     text-decoration: none
+    text-shadow: link-shadow
     &:hover
       text-decoration: underline
   ul, ol, dl
@@ -111,7 +171,7 @@
       margin-right: 0.5em
       margin-left: 1em
   .caption
-    color: color-grey
+    color: color-ui-content
     display: block
     font-size: 0.9em
     margin-top: 0.5em
@@ -130,8 +190,18 @@
       width: 100%
       height: 100%
       margin-top: 0
+  & > *:first-child
+    margin-top: line-height
+  & > h1:first-child, & > h2:first-child, & > h3:first-child, & > h4:first-child, & > h5:first-child, & > h6:first-child
+    margin-top: line-height-title
+  & > *:last-child
+    margin-bottom: line-height
+  & > h1:last-child, & > h2:last-child, & > h3:last-child, & > h4:last-child, & > h5:last-child, & > h6:last-child
+    margin-bottom: line-height-title
   span.muted
     opacity: 0.5
+  & > span.muted
+    display: block
   [class^="collection"]
     display: flex
     flex-wrap: wrap
@@ -156,13 +226,26 @@
       float: right
       margin-left: 10px
   .advent-calender
+    clearfix()
     margin: line-height 0
+    padding: 5px
+    background: lighten(color-pallet-sub, 75%)
     header
       text-align: center
+      font-size: 1.1em
+      margin-bottom: 5px
+      .day
+        margin-left: 0.5em
     .yesterday
-      text-align: left
+      float: left
+      display: inline-block
+      .day
+        margin-right: 0.5em
     .tomorrow
-      text-align: right
+      float: right
+      display: inline-block
+      .day
+        margin-right: 0.5em
   iframe.slideshare
     border: 1px solid #CCC
     margin-bottom: 5px
@@ -172,58 +255,26 @@
     max-height: 400px
     @media (max-width 482px) // 82px on total margin
       max-width: 100%
+  .fancybox-tag.logo > a > img
+    max-width: 100px
+    max-height: 100px
+    @media (max-width 482px) // 82px on total margin
+      max-width: 100%
 
 .article-more-link a
+  @extend $depth-block
   display: inline-block
+  font-family: font-ui
   line-height: 1em
   padding: 6px 15px
-  border-radius: 15px
-  background: color-background
-  color: color-grey
-  text-shadow: 0 1px #fff
+  background: lighten(color-pallet-gray, 70%)
+  color: color-ui-content
   text-decoration: none
+  text-shadow: none
   &:hover
     background: color-link
-    color: #fff
+    color: color-pallet-background
     text-decoration: none
-    text-shadow: 0 1px darken(color-link, 20%)
-
-.article-footer
-  clearfix()
-  font-size: 0.85em
-  line-height: line-height
-  border-top: 1px solid color-border
-  padding-top: line-height
-  margin: 0 article-padding article-padding
-  a
-    color: color-grey
-    text-decoration: none
-    &:hover
-      color: color-default
-
-.article-tag-list-item
-  float: left
-  margin-right: 10px
-
-.article-tag-list-link
-  &:before
-    content: "#"
-
-.article-comment-link
-  float: right
-  &:before
-    content: "\f075"
-    font-family: font-icon
-    padding-right: 8px
-
-.article-share-link
-  cursor: pointer
-  float: right
-  margin-left: 20px
-  &:before
-    content: "\f064"
-    font-family: font-icon
-    padding-right: 6px
 
 #article-nav
   clearfix()
@@ -234,41 +285,42 @@
       absolute-center(8px)
       content: ""
       border-radius: 50%
-      background: color-border
-      box-shadow: 0 1px 2px #fff
+      background: color-pallet-gray
+      box-shadow: 0 1px 2px white
 
 .article-nav-link-wrap
+  @extend $block
   text-decoration: none
-  text-shadow: 0 1px #fff
-  color: color-grey
+  color: color-ui-content
   box-sizing: border-box
   margin-top: block-margin
   text-align: center
-  display: block
+  opacity: 0.9
+  height: 90px
   &:hover
-    color: color-default
+    opacity: 1.0
   @media mq-normal
-    width: 50%
+    width: 48%
     margin-top: 0
+    padding: 10px
 
 #article-nav-newer
   @media mq-normal
     float: left
     text-align: right
-    padding-right: 20px
+    margin-right: 10px
 
 #article-nav-older
   @media mq-normal
     float: right
     text-align: left
-    padding-left: 20px
+    margin-left: 10px
 
 .article-nav-caption
-  text-transform: uppercase
   letter-spacing: 2px
-  color: color-border
-  line-height: 1em
-  font-weight: bold
+  color: color-ui-content
+  line-height: 0.85em
+  font-family: font-ui
   #article-nav-newer &
     margin-right: -2px
 
@@ -276,12 +328,18 @@
   font-size: 0.85em
   line-height: line-height
   margin-top: 0.5em
+  color: lighten(color-ui-content, 20%)
+
+.article-nav-link-wrap:hover
+  .article-nav-caption
+  .article-nav-title
+    color: color-link
 
 .article-share-box
   position: absolute
   display: none
-  background: #fff
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2)
+  background: color-pallet-background
+  box-shadow: depth-box-2
   border-radius: 3px
   margin-left: -145px
   overflow: hidden
@@ -295,16 +353,16 @@
   box-sizing: border-box
   font: 14px font-sans
   padding: 0 15px
-  color: color-default
+  color: color-pallet-content
   outline: none
-  border: 1px solid color-border
+  border: 1px solid color-pallet-background
   border-radius: 3px 3px 0 0
   height: 36px
   line-height: 36px
 
 .article-share-links
   clearfix()
-  background: color-background
+  background: lighten(color-pallet-main, 50%)
 
 $article-share-link
   width: 50px
@@ -312,15 +370,15 @@ $article-share-link
   display: block
   float: left
   position: relative
-  color: #999
-  text-shadow: 0 1px #fff
+  color: color-pallet-gray
+  text-shadow: 0 1px white
   &:before
     font-size: 20px
     font-family: font-icon
     absolute-center(@font-size)
     text-align: center
   &:hover
-    color: #fff
+    color: color-pallet-background
 
 .article-share-twitter
   @extend $article-share-link
@@ -355,7 +413,7 @@ $article-share-link
     text-shadow: 0 1px darken(color-google, 20%)
 
 .article-gallery
-  background: #000
+  background: black
   position: relative
 
 .article-gallery-photos
@@ -375,13 +433,30 @@ $article-share-link
     max-width: 100%
     margin: 0 auto
 
+//region Article kind
+.article-kind-status .article-inner
+  background-image: url(lined-url)
+  background-size: 450px
+  background-position: 0 0
+  .article-entry
+    background-color: rgba(lighten(color-pallet-main, 75%), 40%)
+
+.article-kind-aside .article-inner
+  background-image: url(graph-url)
+  background-size: 200px
+  background-position: 100px 100px
+  .article-entry
+    background-color: rgba(lighten(color-pallet-main, 75%), 60%)
+
+//endregion Article kind
+
 /*
 $article-gallery-ctrl
   position: absolute
   top: 0
   height: 100%
   width: 60px
-  color: #fff
+  color: white
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3)
   opacity: 0.3
   transition: opacity 0.2s

@@ -1,18 +1,18 @@
-categories: カテゴリ
+categories: Categories
 search: 検索
-tags: タグ
-tagcloud: タグクラウド
+tags: Tags
+tagcloud: Tag Cloud
 tweets: ツイート
-prev: 戻る
-next: 次へ
+prev: Prev
+next: Next
 comment: コメント
-archive_a: アーカイブ
+archive_a: Archives
 archive_b: "アーカイブ: %s"
 page: ページ %d
-recent_posts: 最近の投稿
-newer: 次の記事
-older: 前の記事
-share: 共有
+recent_posts: Recent Posts
+newer: Next Article
+older: Previous Article
+share: Share
 powered_by: Powered by
 rss_feed: RSSフィード
 category: カテゴリ

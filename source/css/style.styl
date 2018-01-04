@@ -17,9 +17,19 @@ html, body, #container
   height: 100%
 
 body
-  background: color-background
+  background: url(sandpaper-url) color-page-background
   font: font-size font-sans
+  letter-spacing: 0.5px
   -webkit-text-size-adjust: 100%
+
+// couldn't merge these. bug on browser?
+::selection
+  background: color-pallet-accent
+  color: color-pallet-background
+
+::-moz-selection
+  background: color-pallet-accent
+  color: color-pallet-background
 
 .outer
   clearfix()
@@ -53,7 +63,7 @@ body
   left: 0
   transition: 0.2s ease-out
   z-index: 1
-  background: color-background
+  background: url(sandpaper-url) color-page-background
   .mobile-nav-on &
     left: mobile-nav-width
 
@@ -75,6 +85,7 @@ if sidebar is left
 @import "_partial/footer"
 @import "_partial/highlight"
 @import "_partial/mobile"
+@import "_fancybox"
 
 if sidebar
   @import "_partial/sidebar"

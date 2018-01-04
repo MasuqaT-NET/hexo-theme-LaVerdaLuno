@@ -1,39 +1,75 @@
-// https://github.com/chriskempson/tomorrow-theme
-highlight-background = #2d2d2d
-highlight-current-line = #393939
-highlight-selection = #515151
-highlight-foreground = #cccccc
-highlight-comment = #999999
-highlight-red = #f2777a
-highlight-orange = #f99157
-highlight-yellow = #ffcc66
-highlight-green = #99cc99
-highlight-aqua = #66cccc
-highlight-blue = #6699cc
-highlight-purple = #cc99cc
+//highlight-background = #2d2d2d
+//highlight-current-line = #393939
+//highlight-selection = #515151
+//highlight-foreground = #cccccc
+//highlight-comment = #999999
+//highlight-red = #f2777a    HSL: 358  82  70
+//highlight-orange = #f99157 HSL:  21  93  65
+//highlight-yellow = #ffcc66 HSL:  40 100  70
+//highlight-green = #99cc99  HSL: 120  33  70
+//highlight-aqua = #66cccc   HSL: 180  50  60
+//highlight-blue = #6699cc   HSL: 210  50  60
+//highlight-purple = #cc99cc HSL: 300  33  70
+
+/**
+ * Complex Harmony -fy
+ * Unit: [deg]
+ * -120(240) ->-desaturate,lighten-> 60 ->-saturate,darken-> 240
+ */
+chfy(rot)
+  rot = unit(rot, '') % 360
+  min-s = 60 // @  60deg
+  max-s = 75 // @ 240deg
+  steep-s = (max-s - min-s) / 180 // deg
+  min-l = 60 // @  60deg
+  max-l = 65 // @ 240deg
+  steep-l = (max-l - min-l) / 180 // deg
+  if 0 <= rot and rot < 60
+    s = (60 - rot) * steep-s + min-s
+    l = -(60 - rot) * steep-l + max-l
+    hsl(rot, s, l)
+  else if 60 <= rot and rot < 240
+    s = min-s + (rot - 60) * steep-s
+    l = max-l - (rot - 60) * steep-l
+    hsl(rot, s, l)
+  else // 240 <= rot and rot < 360
+    s = max-s - (rot - 240) * steep-s
+    l = min-l + (rot - 240) * steep-l
+    hsl(rot, s, l)
+
+highlight-background = hsl(hue(color-pallet-accent), 25, 15)
+highlight-current-line = hsl(hue(color-pallet-accent), 18, 22)
+highlight-selection = hsl(hue(color-pallet-accent), 10, 30)
+highlight-foreground = hsl(0deg, 0, 75)
+highlight-comment = hsl(0deg, 0, 50)
+highlight-red = chfy(358deg)
+highlight-orange = chfy(21deg)
+highlight-yellow = chfy(40deg)
+highlight-green = chfy(120deg)
+highlight-aqua = chfy(180deg)
+highlight-blue = chfy(210deg)
+highlight-purple = chfy(300deg)
 
 $code-block
   background: highlight-background
   margin: 0 article-padding * -1
   padding: 15px article-padding - 5
-  border-style: solid
-  border-color: color-border
-  border-width: 1px 0
   overflow: auto
   color: highlight-foreground
   line-height: font-size * line-height
 
 $line-numbers
-  color: #666
+  color: highlight-comment
   font-size: 0.85em
 
 .article-entry
-  pre, code
+  pre, code, .highlight figcaption
     font-family: font-mono
+    letter-spacing: 0
   code
-    background: color-background
-    text-shadow: 0 1px #fff
+    background: lighten(color-pallet-gray, 70%)
     padding: 0 0.3em
+    color: darken(color-pallet-sub, 25%)
   pre
     @extend $code-block
     code
@@ -42,13 +78,14 @@ $line-numbers
       padding: 0
   .highlight
     @extend $code-block
+    padding-left: 0
+    padding-right: 0
     pre
       border: none
       margin: 0
       padding: 0
     table
       margin: 0
-      width: auto
     td
       border: none
       padding: 0
@@ -57,26 +94,38 @@ $line-numbers
       font-size: 0.85em
       color: highlight-comment
       line-height: 1em
-      margin-bottom: 1em
+      margin: 0 15px 1em
       a
         float: right
-    .gutter pre
-      @extend $line-numbers
-      text-align: right
-      padding-right: 20px
-      width: 22px
+    .gutter
+      width: 48px // 4 digits
+      pre
+        @extend $line-numbers
+        text-align: right
+      .line
+        padding-right: 15px
+        &.marked
+          color: highlight-foreground
     .line
       height: font-size * line-height
+      display: block
     .line.marked
       background: highlight-selection
+    br
+      display: none
+    & + .highlight
+      margin-top: 5px
     &.pre-omit-line
       border-bottom: 0
+      margin-bottom: 0
     &.omit-line
       height: font-size + 10
       border-top: 0
       border-bottom: 0
       padding-top: article-padding - 13 - 1 // strange...
       padding-bottom: article-padding - 13
+      margin-top: 0
+      margin-bottom: 0
       & > table
         height: font-size + 10
       td.gutter
@@ -84,11 +133,9 @@ $line-numbers
           opacity: 0
     &.post-omit-line
       border-top: 0
+      margin-top: 0
   .gist
     margin: 0 article-padding * -1
-    border-style: solid
-    border-color: color-border
-    border-width: 1px 0
     background: highlight-background
     padding: 15px article-padding 15px 0
     .gist-file
@@ -123,52 +170,103 @@ $line-numbers
           &:hover
             text-decoration: underline
 
+// Darcula
 pre
-  .comment
-  .title
-    color: highlight-comment
-  .variable
-  .attribute
-  .tag
-  .regexp
-  .ruby .constant
-  .xml .tag .title
-  .xml .pi
-  .xml .doctype
-  .html .doctype
-  .css .id
-  .css .class
-  .css .pseudo
-    color: highlight-red
-  .number
-  .preprocessor
-  .built_in
-  .literal
-  .params
-  .constant
-    color: highlight-orange
-  .class
-  .ruby .class .title
-  .css .rules .attribute
-    color: highlight-green
-  .string
-  .value
-  .inheritance
-  .header
-  .ruby .symbol
-  .xml .cdata
-    color: highlight-green
-  .css .hexcolor
-    color: highlight-aqua
-  .function
-  .python .decorator
-  .python .title
-  .ruby .function .title
-  .ruby .title .keyword
-  .perl .sub
-  .javascript .title
-  .coffeescript .title
-    color: highlight-blue
+  color: highlight-foreground
   .keyword
-  .javascript .function
+    color: highlight-orange
+  .string
+    color: highlight-green
+    .subst
+      color: highlight-foreground
+  .number
+    color: highlight-blue
+  .comment
+    color: highlight-comment
+  .constant
     color: highlight-purple
+  .function > .title
+    color: highlight-yellow
+  .meta
+    color: highlight-yellow
+  .javascript &
+    .attr
+      color: highlight-purple
+    .literal
+      color: highlight-orange
+    .built_in // questionable
+      color: highlight-yellow
+  .rust &
+    .built_in
+      color: highlight-orange
+    .macro
+      color: highlight-aqua
+  .csharp &
+    .literal
+      color: highlight-orange
+  .xml &
+    .xml-def-keyword
+      color: highlight-yellow
+    .tag
+      color: highlight-yellow
+      .attr
+        color: highlight-foreground
+      .name > .ns
+      .attr > .ns
+      .attr > .xmlns-name
+        color: highlight-purple
+
+// .powershell
+
+//.comment
+//.title
+//  color: highlight-comment
+//.variable
+//.attribute
+//.tag
+//.regexp
+//.meta
+//.ruby .constant
+//.xml .tag .title
+//.xml .pi
+//.xml .doctype
+//.html .doctype
+//.css .id
+//.css .class
+//.css .pseudo
+//  color: highlight-red
+//.attr
+//  color: highlight-yellow
+//.number
+//.preprocessor
+//.built_in
+//.literal
+//.params
+//.constant
+//  color: highlight-orange
+//.class
+//.ruby .class .title
+//.css .rules .attribute
+//  color: highlight-green
+//.string
+//.value
+//.inheritance
+//.header
+//.ruby .symbol
+//.xml .cdata
+//  color: highlight-green
+//.type
+//.css .hexcolor
+//  color: highlight-aqua
+//.function
+//.python .decorator
+//.python .title
+//.ruby .function .title
+//.ruby .title .keyword
+//.perl .sub
+//.javascript .title
+//.coffeescript .title
+//  color: highlight-blue
+//.keyword
+//.javascript .function
+//  color: highlight-purple
