@@ -37,7 +37,7 @@ chfy(rot)
     l = min-l + (rot - 240) * steep-l
     hsl(rot, s, l)
 
-highlight-background = hsl(hue(color-pallet-accent), 25, 15)
+highlight-background = hsl(hue(color-pallet-accent), 25, 20)
 highlight-current-line = hsl(hue(color-pallet-accent), 18, 22)
 highlight-selection = hsl(hue(color-pallet-accent), 10, 30)
 highlight-foreground = hsl(0deg, 0, 75)
@@ -113,8 +113,21 @@ $line-numbers
       background: highlight-selection
     td.code:first-child
       padding-left: 20px
-    &.diff td.code:first-child // diff with no line number
-      padding-left: 10px
+    &.diff
+      padding-bottom: 0
+      table
+        td.code:first-child // diff with no line number
+          padding: 3px 0
+          border-color: darken(highlight-background, 30%)
+          border-style: solid
+          border-width: (font-size * line-height - 6) 0
+          .line
+            padding-left: 10px
+            &:empty
+              background-color: darken(highlight-background, 30%)
+              margin-top: 3px
+              margin-bottom: 3px
+              height: font-size * line-height - 6px
     br
       display: none
     & + .highlight
