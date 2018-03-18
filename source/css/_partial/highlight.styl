@@ -14,28 +14,35 @@
 /**
  * Complex Harmony -fy
  * Unit: [deg]
- * -120(240) ->-desaturate,lighten-> 60 ->-saturate,darken-> 240
+ *  -90(270) ->-desaturate-> 90 ->-saturate-> 270
+ *  -60(300) ->-lighten---> 120 ->-darken---> 300
  */
 chfy(rot)
   rot = unit(rot, '') % 360
-  min-s = 60 // @  60deg
-  max-s = 75 // @ 240deg
+
+  min-s = 40 // @  90deg
+  max-s = 80 // @ 270deg
   steep-s = (max-s - min-s) / 180 // deg
-  min-l = 60 // @  60deg
-  max-l = 65 // @ 240deg
+  s = 0
+  if 0 <= rot and rot < 90
+    s = (90 - rot) * steep-s + min-s
+  else if 90 <= rot and rot < 270
+    s = min-s + (rot - 90) * steep-s
+  else // 270 <= rot and rot < 360
+    s = max-s - (rot - 270) * steep-s
+
+  min-l = 60 // @ 300deg
+  max-l = 70 // @ 120deg
   steep-l = (max-l - min-l) / 180 // deg
-  if 0 <= rot and rot < 60
-    s = (60 - rot) * steep-s + min-s
-    l = -(60 - rot) * steep-l + max-l
-    hsl(rot, s, l)
-  else if 60 <= rot and rot < 240
-    s = min-s + (rot - 60) * steep-s
-    l = max-l - (rot - 60) * steep-l
-    hsl(rot, s, l)
-  else // 240 <= rot and rot < 360
-    s = max-s - (rot - 240) * steep-s
-    l = min-l + (rot - 240) * steep-l
-    hsl(rot, s, l)
+  l = 0
+  if 0 <= rot and rot < 120
+    l = -(120 - rot) * steep-l + max-l
+  else if 120 <= rot and rot < 300
+    l = max-l - (rot - 120) * steep-l
+  else // 270 <= rot and rot < 360
+    l = min-l + (rot - 300) * steep-l
+
+  hsl(rot, s, l)
 
 highlight-background = hsl(hue(color-pallet-accent), 25, 20)
 highlight-current-line = hsl(hue(color-pallet-accent), 18, 22)
@@ -45,7 +52,7 @@ highlight-comment = hsl(0deg, 0, 50)
 highlight-red = chfy(358deg)
 highlight-orange = chfy(21deg)
 highlight-yellow = chfy(40deg)
-highlight-green = chfy(120deg)
+highlight-green = chfy(120deg) // chfy(120deg)
 highlight-aqua = chfy(180deg)
 highlight-blue = chfy(210deg)
 highlight-purple = chfy(300deg)
