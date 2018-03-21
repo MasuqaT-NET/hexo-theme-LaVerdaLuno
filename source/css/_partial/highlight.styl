@@ -213,13 +213,17 @@ pre
     color: highlight-yellow
   .meta
     color: highlight-yellow
-  .javascript &, .json &
+  .javascript &, .json &, .typescript &
     .attr
       color: highlight-purple
     .literal
       color: highlight-orange
     .built_in // questionable
-      color: highlight-yellow
+      color: highlight-orange
+    .regexp
+      color: highlight-green
+    .function > .title
+      color: highlight-foreground
   .rust &
     .built_in
       color: highlight-orange
