@@ -48,6 +48,7 @@ highlight-background = hsl(hue(color-pallet-accent), 25, 20)
 highlight-current-line = hsl(hue(color-pallet-accent), 18, 22)
 highlight-selection = hsl(hue(color-pallet-accent), 10, 30)
 highlight-foreground = hsl(0deg, 0, 75)
+highlight-foreground-dim = darken(highlight-foreground, 20%)
 highlight-comment = hsl(0deg, 0, 50)
 highlight-red = chfy(358deg)
 highlight-orange = chfy(21deg)
@@ -255,6 +256,11 @@ pre
       color: highlight-orange
     .attribute
       color: highlight-foreground
+  .markdown &
+    .section
+      color: highlight-purple
+    .code
+      color: highlight-foreground-dim
 
 // .powershell
 
