@@ -14,38 +14,46 @@
 /**
  * Complex Harmony -fy
  * Unit: [deg]
- * -120(240) ->-desaturate,lighten-> 60 ->-saturate,darken-> 240
+ *  -90(270) ->-desaturate-> 90 ->-saturate-> 270
+ *  -60(300) ->-lighten---> 120 ->-darken---> 300
  */
 chfy(rot)
   rot = unit(rot, '') % 360
-  min-s = 60 // @  60deg
-  max-s = 75 // @ 240deg
-  steep-s = (max-s - min-s) / 180 // deg
-  min-l = 60 // @  60deg
-  max-l = 65 // @ 240deg
-  steep-l = (max-l - min-l) / 180 // deg
-  if 0 <= rot and rot < 60
-    s = (60 - rot) * steep-s + min-s
-    l = -(60 - rot) * steep-l + max-l
-    hsl(rot, s, l)
-  else if 60 <= rot and rot < 240
-    s = min-s + (rot - 60) * steep-s
-    l = max-l - (rot - 60) * steep-l
-    hsl(rot, s, l)
-  else // 240 <= rot and rot < 360
-    s = max-s - (rot - 240) * steep-s
-    l = min-l + (rot - 240) * steep-l
-    hsl(rot, s, l)
 
-highlight-background = hsl(hue(color-pallet-accent), 25, 15)
+  min-s = 40 // @  90deg
+  max-s = 80 // @ 270deg
+  steep-s = (max-s - min-s) / 180 // deg
+  s = 0
+  if 0 <= rot and rot < 90
+    s = (90 - rot) * steep-s + min-s
+  else if 90 <= rot and rot < 270
+    s = min-s + (rot - 90) * steep-s
+  else // 270 <= rot and rot < 360
+    s = max-s - (rot - 270) * steep-s
+
+  min-l = 60 // @ 300deg
+  max-l = 70 // @ 120deg
+  steep-l = (max-l - min-l) / 180 // deg
+  l = 0
+  if 0 <= rot and rot < 120
+    l = -(120 - rot) * steep-l + max-l
+  else if 120 <= rot and rot < 300
+    l = max-l - (rot - 120) * steep-l
+  else // 270 <= rot and rot < 360
+    l = min-l + (rot - 300) * steep-l
+
+  hsl(rot, s, l)
+
+highlight-background = hsl(hue(color-pallet-accent), 25, 20)
 highlight-current-line = hsl(hue(color-pallet-accent), 18, 22)
 highlight-selection = hsl(hue(color-pallet-accent), 10, 30)
 highlight-foreground = hsl(0deg, 0, 75)
+highlight-foreground-dim = darken(highlight-foreground, 20%)
 highlight-comment = hsl(0deg, 0, 50)
 highlight-red = chfy(358deg)
 highlight-orange = chfy(21deg)
 highlight-yellow = chfy(40deg)
-highlight-green = chfy(120deg)
+highlight-green = chfy(120deg) // chfy(120deg)
 highlight-aqua = chfy(180deg)
 highlight-blue = chfy(210deg)
 highlight-purple = chfy(300deg)
@@ -111,6 +119,23 @@ $line-numbers
       display: block
     .line.marked
       background: highlight-selection
+    td.code:first-child
+      padding-left: 20px
+    &.diff
+      padding-bottom: 0
+      table
+        td.code:first-child // diff with no line number
+          padding: 3px 0
+          border-color: darken(highlight-background, 30%)
+          border-style: solid
+          border-width: (font-size * line-height - 6) 0
+          .line
+            padding-left: 10px
+            &:empty
+              background-color: darken(highlight-background, 30%)
+              margin-top: 3px
+              margin-bottom: 3px
+              height: font-size * line-height - 6px
     br
       display: none
     & + .highlight
@@ -189,13 +214,17 @@ pre
     color: highlight-yellow
   .meta
     color: highlight-yellow
-  .javascript &
+  .javascript &, .json &, .typescript &
     .attr
       color: highlight-purple
     .literal
       color: highlight-orange
     .built_in // questionable
-      color: highlight-yellow
+      color: highlight-orange
+    .regexp
+      color: highlight-green
+    .function > .title
+      color: highlight-foreground
   .rust &
     .built_in
       color: highlight-orange
@@ -215,6 +244,23 @@ pre
       .attr > .ns
       .attr > .xmlns-name
         color: highlight-purple
+  .diff &
+    .addition
+      color: highlight-green
+    .deletion
+      color: highlight-red
+  .css &
+    .selector-class
+      color: highlight-yellow
+    .selector-tag
+      color: highlight-orange
+    .attribute
+      color: highlight-foreground
+  .markdown &
+    .section
+      color: highlight-purple
+    .code
+      color: highlight-foreground-dim
 
 // .powershell
 
