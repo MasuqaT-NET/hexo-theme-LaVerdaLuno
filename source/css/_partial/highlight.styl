@@ -198,10 +198,14 @@ $line-numbers
 // Darcula
 pre
   color: highlight-foreground
+  a.vglnk
+    color: highlight-foreground
   .keyword
     color: highlight-orange
   .string
     color: highlight-green
+    a.vglnk
+      color: highlight-green
     .subst
       color: highlight-foreground
   .number
@@ -247,6 +251,14 @@ pre
       .attr > .ns
       .attr > .xmlns-name
         color: highlight-purple
+    .meta
+      .meta-string
+        color: highlight-green
+        a.vglnk
+          color: highlight-green
+    .string
+      a.vglnk
+        color: highlight-green
   .diff &
     .addition
       color: highlight-green
