@@ -102,7 +102,32 @@ hexo.extend.filter.register('after_post_render', function (data) {
       }
       $(this).empty();
       $(this).append(tagStr);
+      $(this).append
     });
+  });
+
+  // for yaml
+  highlights.filter(function () {
+    return $(this).hasClass('yaml');
+  }).each(function () {
+    // attribute
+    $(this).find('.attr').each(function () {
+      var attrStr = $(this).html();
+      if (attrStr.endsWith(":")) {
+        attrStr = attrStr.slice(0, -1);
+        $(this).after(":")
+      }
+      $(this).empty();
+      $(this).append(attrStr);
+    });
+
+    // value
+    $(this).find('.string').each(function () {
+      var valueStr = $(this).html();
+      if ((valueStr.startsWith('&apos;') && valueStr.endsWith('&apos;')) || valueStr.startsWith('&quot;') && valueStr.endsWith('&quot;')) {
+        $(this).removeClass('string').addClass('quoted-string');
+      }
+    })
   });
 
   data.content = $('body').html();
