@@ -5,10 +5,12 @@ menu:
   Series: /series
   Index: https://masuqat.net/
 rss: /atom.xml
+banner: "images/banner.jpg"
 
 # Content
 excerpt_link: Read More
 fancybox: true
+recent_posts_limits: 5
 
 # Sidebar
 sidebar: right
@@ -35,7 +37,6 @@ domain: 'blog.masuqat.net'
 favicon: '/icons/favicon.ico'
 apple_touch_icon: '/icons/apple-touch-icon.png'
 twitter:
-google_plus:
 fb_admins:
 fb_app_id:
 
