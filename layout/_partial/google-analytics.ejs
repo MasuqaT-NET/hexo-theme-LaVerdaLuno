@@ -1,18 +1,14 @@
 <% if (theme.google_analytics){ %>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<% if (theme.domain) { // avoid senting data on non-product host if configured. %>
-  if (location.href.indexOf('<%= theme.domain %>') >= 0) {
-<% } %>
 <script async src="https://www.googletagmanager.com/gtag/js?id=<%= theme.google_analytics %>"></script>
 <script>
+if (location.href.indexOf('<%= theme.domain %>') >= 0) {
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', '<%= theme.google_analytics %>');
+}
 </script>
-<% if (theme.domain) { %>
-  }
-<% } %>
 <!-- End Google Analytics -->
 <% } %>
