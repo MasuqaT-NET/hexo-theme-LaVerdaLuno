@@ -130,5 +130,20 @@ hexo.extend.filter.register('after_post_render', function (data) {
     })
   });
 
+  // TypeScript or JavaScript
+  highlights.filter(function () {
+    return $(this).hasClass('javascript') || $(this).hasClass('typescript');
+  }).each(function () {
+    // clean built in keyword noise
+    $(this).find('.built_in').each(function () {
+      var name = $(this).html();
+      if (['document', 'Error'].includes(name)) {
+        $(this).removeClass('built_in').addClass('built_in-extra');
+      } else if (['module'].includes(name)) {
+        $(this).removeClass('built_in').addClass('built_in-noise');
+      }
+    })
+  });
+
   data.content = $('body').html();
 });

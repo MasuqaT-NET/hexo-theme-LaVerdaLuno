@@ -227,15 +227,15 @@ pre
       color: highlight-purple
     .literal
       color: highlight-orange
-      font-weight: bold;
-    .built_in // questionable
+    .built_in
       color: highlight-orange
+    .built_in-extra
+      color: highlight-purple
+      font-style: oblique
     .regexp
       color: highlight-green
     .function > .title
       color: highlight-foreground
-    .keyword
-      font-weight: bold;
   .rust &
     .built_in
       color: highlight-orange
@@ -244,7 +244,7 @@ pre
   .csharp &
     .literal
       color: highlight-orange
-  .xml &
+  .xml &, .javascript & .xml, .typescript & .xml
     .xml-def-keyword
       color: highlight-yellow
     .tag
