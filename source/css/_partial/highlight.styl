@@ -112,15 +112,19 @@ $line-numbers
         text-align: right
       .line
         padding-right: 15px
+        width: 48px // 4 digits
+        box-sizing: border-box
         &.marked
           color: highlight-foreground
     .line
       height: font-size * line-height
       display: block
+      width: 100%
     .line.marked
       background: highlight-selection
-    td.code:first-child
-      padding-left: 20px
+    td.code
+      &:first-child
+        padding-left: 20px
     &.diff
       padding-bottom: 0
       table
