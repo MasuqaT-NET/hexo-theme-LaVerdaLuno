@@ -38,4 +38,3 @@ hexo.extend.tag.register('fancybox', function(args){
         (title ? '<span class="caption">' + title + '</span>' : '') +
         '</div>';
 });
-

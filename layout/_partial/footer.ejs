@@ -7,7 +7,10 @@
       <%
       var beginningStr = typeof config.beginning_year === 'undefined' ? '' : '' + config.beginning_year + '-';
       var authorStr = (config.footer_link) ? ('<a href="' + config.footer_link[0].url + '">' + config.footer_link[0].text + '</a>') : (config.author || config.title);
-%>
+      %>
+      <% if (theme.copyright){ %>
+        <%- render(theme.copyright, 'pug'); %>
+      <% } %>
       &copy; <%= beginningStr %><%= date(new Date(), 'YYYY') %> <%- authorStr %><br>
         <%= __('powered_by') %> <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>

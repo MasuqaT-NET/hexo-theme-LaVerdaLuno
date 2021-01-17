@@ -1,6 +1,6 @@
 {
   "name": "hexo-theme-landscape",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "license": "MIT",
   "dependencies": {
@@ -11,4 +11,5 @@
     "@types/cheerio": "^0.22.21",
     "cheerio": "^1.0.0-rc.3"
   }
+}
 }
