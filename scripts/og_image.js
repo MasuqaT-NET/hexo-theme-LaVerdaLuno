@@ -37,7 +37,7 @@ hexo.extend.filter.register("before_post_render", async function (page) {
   const pageContent = ejs.render(contentHtml, options)
   const browserPage = await browser.newPage();
   await browserPage.setContent(pageContent);
-  await browserPage.screenshot({path: ogImageDestFilePath});
+  await browserPage.screenshot({path: ogImageDestFilePath, fullPage: true});
 
   hexo.log.i(`Generated ${ogImageDestFilePath}`);
 })
