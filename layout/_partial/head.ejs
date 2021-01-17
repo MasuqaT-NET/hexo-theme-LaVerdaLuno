@@ -17,23 +17,22 @@
   } else if (is_tag()){
     title = __('tag') + ': ' + page.tag;
   }
+
+  var canonical_url = page.canonical_url;
+  var base_url = config.url;
+  if (config.url.charAt(config.url.length - 1) !== '/') base_url += '/';
+  if (!canonical_url) {
+    canonical_url = (base_url + page.canonical_path).replace('index.html', '')
+  }
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <%- open_graph({ twitter_id: theme.twitter, image: base_url + page.og_image, url: canonical_url }) %>
   <% if (config.feed) { %>
     <%- feed_tag() %>
   <% } else if (theme.rss) { %>
     <%- feed_tag(theme.rss) %>
   <% } %>
-  <%
-  var canonical_url = page.canonical_url;
-  if (!canonical_url) {
-    var base_url = config.url;
-    if (config.url.charAt(config.url.length - 1) !== '/') base_url += '/';
-    canonical_url = (base_url + page.canonical_path).replace('index.html', '')
-  }
-  %>
   <link rel="canonical" href="<%= canonical_url %>"/>
   <% if (theme.favicon){ %>
     <%- favicon_tag(theme.favicon) %>
