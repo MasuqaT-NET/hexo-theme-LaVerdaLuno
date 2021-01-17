@@ -31,10 +31,12 @@ hexo.extend.tag.register('fancybox', function(args){
   const classesStr = classes.length > 0 ? ' ' + classes.join(' ') : '';
   var title = args.join(' ');
 
-    return '<div class="fancybox-tag' + classesStr + '">' +
-        '<a data-fancybox="gallery" href="' + original + '" data-caption="' + title + '">' +
-        '<img src="' + (thumbnail || original) + '" alt="' + title + '">' +
-        '</a>' +
-        (title ? '<span class="caption">' + title + '</span>' : '') +
-        '</div>';
+  return `
+    <div class="fancybox-tag${classesStr}">
+      <a data-fancybox="gallery" href="${original}" data-caption="${title}">
+        <img src="${thumbnail || original}" alt="${title}" />
+      </a>
+      ${title ? `<span class="caption">${title}</span>` : ''}
+    </div>
+  `;
 });
