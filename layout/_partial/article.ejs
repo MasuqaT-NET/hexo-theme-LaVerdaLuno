@@ -21,7 +21,7 @@
             var permalink = post.permalink.substr(post.permalink.length - 11) === "/index.html" ?
                     post.permalink.substr(0, post.permalink.length - 11) + '/' : post.permalink;
           %>
-          <a data-url="<%- permalink %>" data-id="<%= post._id %>" class="article-share-link"><%= __('share') %></a>
+          <a data-url="<%- permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %> | <%= config.title %>" class="article-share-link"><%= __('share') %></a>
         </div>
       </header>
     <% } %>
