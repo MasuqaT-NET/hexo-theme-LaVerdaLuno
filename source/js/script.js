@@ -42,6 +42,10 @@
       encodedUrl = encodeURIComponent(url),
       id = 'article-share-box-' + $this.attr('data-id'),
       title = $this.attr('data-title'),
+      encodedTitle = encodeURIComponent(title),
+      rootUrl = new URL($('link[rel=canonical]').attr('href')),
+      feedUrl = rootUrl.origin + $('link[rel=alternate]').attr('href'),
+      encodedFeedUrl = encodeURIComponent(feedUrl),
       offset = $this.offset();
 
     if ($('#' + id).length){
@@ -54,12 +58,12 @@
     } else {
       var html = [
         '<div id="' + id + '" class="article-share-box">',
-          '<input class="article-share-input" value="' + url + '">',
+          '<input class="article-share-input" value="' + url + '" readonly>',
           '<div class="article-share-links">',
-            '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-            '<a href="https://www.linkedin.com/shareArticle?mini=true&url=' + encodedUrl + '" class="article-share-linkedin" target="_blank" title="LinkedIn"></a>',
+            `<a href="https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}" class="article-share-twitter" target="_blank" rel="noopener noreferrer" title="Twitter"></a>`,
+            `<a href="https://getpocket.com/edit?url=${encodedUrl}" class="article-share-pocket" target="_blank" rel="noopener noreferrer" title="Pocket"></a>`,
+            `<a href="https://b.hatena.ne.jp/entry/panel/?url=${encodedUrl}" class="article-share-hatena" target="_blank" rel="noopener noreferrer" title="Hatena"></a>`,
+            `<a href="https://feedly.com/i/subscription/feed/${encodedFeedUrl}" class="article-share-feedly" target="_blank" rel="noopener noreferrer" title="Feedly"></a>`,
           '</div>',
         '</div>'
       ].join('');
