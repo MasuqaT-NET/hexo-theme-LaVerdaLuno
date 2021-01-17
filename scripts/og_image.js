@@ -1,13 +1,14 @@
 const fs = require("hexo-fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
+const ejs = require("ejs");
 
 let browser;
 let contentHtml;
 
 hexo.extend.filter.register("after_init", async function () {
   browser = await puppeteer.launch({headless: true});
-  const contentHtmlPath = path.join(hexo.theme_dir, "source/html/og_image.html");
+  const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.ejs");
   contentHtml = await fs.readFile(contentHtmlPath);
 });
 
@@ -32,7 +33,8 @@ hexo.extend.filter.register("before_post_render", async function (page) {
 
   await fs.mkdirs(path.dirname(ogImageDestFilePath));
 
-  const pageContent = contentHtml.replace("<%= title %>", page.title);
+  const options = {title: page.title, width: 1200, height: 630};
+  const pageContent = ejs.render(contentHtml, options)
   const browserPage = await browser.newPage();
   await browserPage.setContent(pageContent);
   await browserPage.screenshot({path: ogImageDestFilePath});
