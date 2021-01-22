@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Ribeye+Marrow&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --silver-rate: 2.4142135623;
+            --page-width: 1200px;
+            --page-height: 630px;
+            --header-height: calc(var(--page-height) / (var(--silver-rate) + 1));
+            --title-padding: calc(var(--page-width) / (var(--silver-rate) + 1) / 2);
+        }
+
+        html {
+            background-color: black;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: var(--page-width);
+            height: var(--page-height);
+            display: grid;
+            grid-template-rows: var(--header-height) calc(var(--page-height) - var(--header-height));
+        }
+
+        header {
+            text-align: center;
+            background-color: #BD645A;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABkCAMAAADqvX3PAAAAKlBMVEUAAADX19fX19fBwcHT09PX19fW1tbT09PW1tbV1dXOzs7Ozs7BwcHV1dX5uIg2AAAADnRSTlMAPQAKH0czAAApFAAAAHys1goAAAHwSURBVHja7ZfdcuMwCEb1GUIDcd//dZuk2n5rZzCKOzuzFzo3+XNOBAIHtQosxwi0XUw/jjh2qN1pVzV43FJwJIDLuq5tvaNmzxeEZI5wWP/p9v0gypgGYhGH8fL28yyM7ycOJkFlJW3tZDHhRdBjIO22JR6a1BGMgTAWopvr6BC1jSB1MDWyXYfvkpDlg4iiV83lITiuoXZL+U4/ltcNq2MhogaYBWMYjYU8HHfSRdTrCIOLYImemrfz8dMO6DlVGYyFMWz3tmuGY6GgO1ikXVM51JDXurBO0nyEcyPTnvOXvmyb0hzqfV64jUUYw47Re9CZe6EbeC+M39+TcfK/gTFZuxZgOSag7aMASwGkrQW1Y2lLwXRMx3RMx3T8Pw67FpSOcA5RCccOcTMNL05aRw7Fn2kizA7+1VNH6ENAOBgOxiIK888dHPVqh+Q/yeknzQfHkhx+nqyjT0QFzDUd2Skp53lp7PdFnEkYIhzQv/KRzJUV0QdDSON5+S14CEW0vqSTiAPWWDknCLsY0BZxnNP0L/Z9YQEO8yznXZ2yNwfgTu7rNFgj9aamvS9eZljMTNOeoybSGNwQkvZ+3XrCU07t4HmWSBjDLBzEwdSzhMYcRPRZNYmgdjA1FyahcKQIqpKZs8N0TMd0TMd0/BvHF8n9f8tHo7HcAAAAAElFTkSuQmCC);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: calc(var(--header-height) / (var(--silver-rate) + 1));
+            line-height: 1em;
+            font-family: 'Ribeye Marrow', cursive;
+            color: white;
+        }
+
+        main {
+            padding: 0 var(--title-padding);
+            background-color: #E9E4DC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 64px;
+            color: #2f4351;
+            line-height: 1.4;
+            font-weight: 500;
+            transform: translateY(-0.05em); /* フォント固有の高さを打ち消す */
+            overflow-wrap: anywhere;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>La Verda Luno</h1>
+</header>
+<main>
+    <h2 id="title">寿限無寿限無五劫のすりきれ海砂利水魚の水行末雲来末風来末</h2>
+</main>
+</body>
+</html>

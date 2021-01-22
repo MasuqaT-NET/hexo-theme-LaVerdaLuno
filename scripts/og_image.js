@@ -1,22 +1,25 @@
 const fs = require("hexo-fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
-const ejs = require("ejs");
 
 let browser;
-let contentHtml;
+let browserPage;
 
+// TODO 消す
 hexo.extend.filter.register("after_init", async function () {
   browser = await puppeteer.launch({headless: true});
-  const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.ejs");
-  contentHtml = await fs.readFile(contentHtmlPath);
+  const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.html");
+  const contentHtml = await fs.readFile(contentHtmlPath);
+  browserPage = await browser.newPage();
+  await browserPage.setContent(contentHtml);
 });
 
+// TODO 消す
 hexo.extend.filter.register("before_exit", async function () {
   await browser.close();
 });
 
-
+// TODO 置き換える
 hexo.extend.filter.register("before_post_render", async function (page) {
   if (page.layout !== "post") {
     return;
@@ -33,11 +36,16 @@ hexo.extend.filter.register("before_post_render", async function (page) {
 
   await fs.mkdirs(path.dirname(ogImageDestFilePath));
 
-  const options = {title: page.title, width: 1200, height: 630};
-  const pageContent = ejs.render(contentHtml, options)
-  const browserPage = await browser.newPage();
-  await browserPage.setContent(pageContent);
+  await browserPage.evaluate(title => {
+    document.querySelector("#title").textContent = title
+  }, page.title)
   await browserPage.screenshot({path: ogImageDestFilePath, fullPage: true});
 
   hexo.log.i(`Generated ${ogImageDestFilePath}`);
 })
+
+hexo.extend.filter.register("after_render", async function (page) { // TODO ??? before_generate???
+
+});
+
+// TODO 直列にやるとデータが衝突して死ぬ。適切な filter で待ち構えてまとめてやる必要がある
