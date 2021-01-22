@@ -1,21 +1,21 @@
 const fs = require("hexo-fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
-
-const DEST_DIR_NAME = "og_images";
+const { magenta } = require('chalk');
 
 hexo.extend.filter.register("before_post_render", async function (page) {
   if (page.layout !== "post") {
     return;
   }
 
-  const ogImagePath = path.join(DEST_DIR_NAME, `${page.date.year()}/${page.p}.png`);
+  const ogImagePath = path.join("og_images", `${page.date.year()}/${page.p}.png`);
 
   page.og_image = ogImagePath.replace(/\\/g, "/");
 })
 
 hexo.extend.filter.register("before_generate", async function ([documents]) {
-  if (hexo.env.env === "development") {
+  // only if generate(build) pages
+  if (hexo.env.cmd !== "generate") {
     return;
   }
 
@@ -34,7 +34,8 @@ hexo.extend.filter.register("before_generate", async function ([documents]) {
   await page.setContent(contentHtml);
 
   for await (const post of posts) {
-    const ogImageDestFilePath = path.join(hexo.source_dir, post.og_image);
+    const imagePath = post.og_image;
+    const ogImageDestFilePath = path.join(hexo.public_dir, imagePath);
     if (await fs.exists(ogImageDestFilePath)) {
       return;
     }
@@ -46,7 +47,7 @@ hexo.extend.filter.register("before_generate", async function ([documents]) {
     }, post.title)
     await page.screenshot({path: ogImageDestFilePath, fullPage: true});
 
-    hexo.log.d(`Generated ${ogImageDestFilePath}`);
+    hexo.log.i(`Generated: ${magenta(imagePath)}`);
   }
 
   await browser.close();
