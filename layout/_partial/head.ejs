@@ -22,12 +22,21 @@
   var base_url = config.url;
   if (config.url.charAt(config.url.length - 1) !== '/') base_url += '/';
   if (!canonical_url) {
-    canonical_url = (base_url + page.canonical_path).replace('index.html', '')
+    canonical_url = (base_url + page.canonical_path).replace('index.html', '');
   }
+
+  const page_title = !!title ? `${title} | ${config.title}` : config.title;
   %>
-  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  <title><%= page_title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%- open_graph({ twitter_id: theme.twitter, image: base_url + page.og_image, url: canonical_url }) %>
+  <%- open_graph({
+    title: page_title,
+    url: canonical_url,
+    image: base_url + page.og_image,
+    twitter_id: theme.twitter,
+    twitter_site: config.title,
+    twitter_card: !!page.og_image ? 'summary_large_image' : undefined
+  }) %>
   <% if (config.feed) { %>
     <%- feed_tag() %>
   <% } else if (theme.rss) { %>
