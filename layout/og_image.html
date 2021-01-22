@@ -6,11 +6,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Ribeye+Marrow&display=swap"
           rel="stylesheet">
-    <style>
+    <style id="default-style">
         :root {
-            --silver-rate: 2.4142135623;
             --page-width: 1200px;
             --page-height: 630px;
+        }
+    </style>
+    <style id="main-style">
+        :root {
+            --silver-rate: 2.4142135623;
             --header-height: calc(var(--page-height) / (var(--silver-rate) + 1));
             --title-padding: calc(var(--page-width) / (var(--silver-rate) + 1) / 2);
         }

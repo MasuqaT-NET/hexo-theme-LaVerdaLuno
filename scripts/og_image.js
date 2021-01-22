@@ -3,6 +3,9 @@ const path = require("path");
 const puppeteer = require("puppeteer");
 const {magenta} = require('chalk');
 
+const WIDTH = 1200;
+const HEIGHT = 630;
+
 hexo.extend.filter.register("before_post_render", async function (page) {
   if (page.layout !== "post") {
     return;
@@ -31,12 +34,23 @@ hexo.extend.filter.register("before_generate", async function ([documents]) {
   // open page template
   const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.html");
   const contentHtml = await fs.readFile(contentHtmlPath);
-  await page.setContent(contentHtml);
-  await page.waitForNavigation({
+  await page.setViewport({
+    width: WIDTH,
+    height: HEIGHT,
+  })
+  await page.setContent(contentHtml, {
     waitUntil: 'networkidle0',
-  });
+  })
+  await page.evaluate(({width, height}) => {
+    document.querySelector("#main-style").insertAdjacentText("afterbegin", `
+      :root {
+        --page-width: ${width};
+        --page-height: ${height};
+      }
+    `);
+  }, {width: `${WIDTH}px`, height: `${HEIGHT}px`});
 
-  for await (const post of posts) {
+  for (const post of posts) {
     const imagePath = post.og_image;
     const ogImageDestFilePath = path.join(hexo.public_dir, imagePath);
     if (await fs.exists(ogImageDestFilePath)) {
@@ -48,7 +62,7 @@ hexo.extend.filter.register("before_generate", async function ([documents]) {
     await page.evaluate(title => {
       document.querySelector("#title").textContent = title;
     }, post.title)
-    await page.screenshot({path: ogImageDestFilePath, fullPage: true});
+    await page.screenshot({path: ogImageDestFilePath});
 
     hexo.log.i(`Generated: ${magenta(imagePath)}`);
   }
