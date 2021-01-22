@@ -2,50 +2,52 @@ const fs = require("hexo-fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 
-let browser;
-let browserPage;
+const DEST_DIR_NAME = "og_images";
 
-// TODO 消す
-hexo.extend.filter.register("after_init", async function () {
-  browser = await puppeteer.launch({headless: true});
-  const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.html");
-  const contentHtml = await fs.readFile(contentHtmlPath);
-  browserPage = await browser.newPage();
-  await browserPage.setContent(contentHtml);
-});
-
-// TODO 消す
-hexo.extend.filter.register("before_exit", async function () {
-  await browser.close();
-});
-
-// TODO 置き換える
 hexo.extend.filter.register("before_post_render", async function (page) {
   if (page.layout !== "post") {
     return;
   }
 
-  const ogImagePath = path.join("og_images", `${page.date.year()}/${page.p}.png`);
-  const ogImageDestFilePath = path.join(hexo.source_dir, ogImagePath);
+  const ogImagePath = path.join(DEST_DIR_NAME, `${page.date.year()}/${page.p}.png`);
 
   page.og_image = ogImagePath.replace(/\\/g, "/");
+})
 
-  if (await fs.exists(ogImageDestFilePath)) {
+hexo.extend.filter.register("before_generate", async function ([documents]) {
+  if (hexo.env.env === "development") {
     return;
   }
 
-  await fs.mkdirs(path.dirname(ogImageDestFilePath));
+  const posts = documents.filter(d => d.layout === "post" && !!d.og_image);
 
-  await browserPage.evaluate(title => {
-    document.querySelector("#title").textContent = title
-  }, page.title)
-  await browserPage.screenshot({path: ogImageDestFilePath, fullPage: true});
+  if (posts.length === 0) {
+    return;
+  }
 
-  hexo.log.i(`Generated ${ogImageDestFilePath}`);
-})
+  const browser = await puppeteer.launch({headless: true});
+  const page = await browser.newPage();
 
-hexo.extend.filter.register("after_render", async function (page) { // TODO ??? before_generate???
+  // open page template
+  const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.html");
+  const contentHtml = await fs.readFile(contentHtmlPath);
+  await page.setContent(contentHtml);
 
+  for await (const post of posts) {
+    const ogImageDestFilePath = path.join(hexo.source_dir, post.og_image);
+    if (await fs.exists(ogImageDestFilePath)) {
+      return;
+    }
+
+    await fs.mkdirs(path.dirname(ogImageDestFilePath));
+
+    await page.evaluate(title => {
+      document.querySelector("#title").textContent = title;
+    }, post.title)
+    await page.screenshot({path: ogImageDestFilePath, fullPage: true});
+
+    hexo.log.d(`Generated ${ogImageDestFilePath}`);
+  }
+
+  await browser.close();
 });
-
-// TODO 直列にやるとデータが衝突して死ぬ。適切な filter で待ち構えてまとめてやる必要がある
