@@ -1,7 +1,7 @@
 const fs = require("hexo-fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
-const { magenta } = require('chalk');
+const {magenta} = require('chalk');
 
 hexo.extend.filter.register("before_post_render", async function (page) {
   if (page.layout !== "post") {
@@ -32,6 +32,9 @@ hexo.extend.filter.register("before_generate", async function ([documents]) {
   const contentHtmlPath = path.join(hexo.theme_dir, "layout/og_image.html");
   const contentHtml = await fs.readFile(contentHtmlPath);
   await page.setContent(contentHtml);
+  await page.waitForNavigation({
+    waitUntil: 'networkidle0',
+  });
 
   for await (const post of posts) {
     const imagePath = post.og_image;
