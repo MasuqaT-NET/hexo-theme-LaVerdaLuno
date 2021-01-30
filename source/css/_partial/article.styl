@@ -279,11 +279,11 @@
 #article-nav
   clearfix()
   position: relative
+  margin: block-margin 0
   @media mq-normal
     display: grid
     grid-template-columns: 1fr 1fr
     column-gap block-margin
-    margin: block-margin 0
     &:before
       absolute-center(8px)
       content: ""
@@ -293,18 +293,20 @@
 
 .article-nav-link-wrap
   @extend $block
+  display: block
   text-decoration: none
   color: color-ui-content
   box-sizing: border-box
-  margin-top: block-margin
   text-align: center
   opacity: 0.9
-  height: 90px
+  padding: 10px
   &:hover
     opacity: 1.0
+  & + &
+    margin-top: (block-margin / 2)
   @media mq-normal
-    margin-top: 0
-    padding: 10px
+    margin-top: 0 !important
+    height: 90px
 
 #article-nav-newer
   @media mq-normal
