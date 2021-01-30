@@ -4,6 +4,8 @@
   grid-template-columns: 1fr 1fr
   &::before, &::after // outer の疑似要素を打ち消す
     content: none;
+  @media mq-mobile
+    grid-template-columns: 1fr
 
 .widget-wrap
   margin: 0
