@@ -32,6 +32,15 @@ body
   font: font-size font-sans
   letter-spacing: 0.5px
   -webkit-text-size-adjust: 100%
+  overflow: overlay
+  &::-webkit-scrollbar
+    background: transparent
+    width: 10px
+  &::-webkit-scrollbar-thumb
+    background: alpha(color-pallet-content, 0.4)
+    border-radius: 2px
+  &:hover::-webkit-scrollbar-thumb
+    background: alpha(color-pallet-content, 0.6)
 
 // couldn't merge these. bug on browser?
 ::selection
@@ -62,6 +71,7 @@ body
 
 #container
   position: relative
+
 
 .mobile-nav-on
   overflow: hidden
