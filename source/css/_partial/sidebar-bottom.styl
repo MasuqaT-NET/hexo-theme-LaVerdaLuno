@@ -1,27 +1,27 @@
-//.widget-wrap
-//  margin-bottom: block-margin !important
-//  @media mq-normal
-//    column(main-column)
-//
-//.widget-title
-//  color: color-ui-content
-//  text-transform: uppercase
-//  letter-spacing: 2px
-//  margin-bottom: .5em
-//  line-height: 1em
-//  font-weight: bold
-//
-//.widget
-//  color: color-pallet-gray
-//  ul, ol
-//    li
-//      display: inline-block
-//      zoom: 1
-//      *display:inline
-//      padding-right: .75em
-/* Having problems getting balanced white space between items
-    li:before
-      content: " | "
-    li:first-child:before
-      content: none
- */
+#sidebar
+  display: grid
+  gap: block-margin
+  grid-template-columns: 1fr 1fr
+  &::before, &::after // outer の疑似要素を打ち消す
+    content: none;
+
+.widget-wrap
+  margin: 0
+
+.widget-title
+  @extend $block-caption
+
+.widget
+  background: lighten(color-pallet-main, 60%)
+  padding: 15px
+  font-family: font-sans
+  a
+    color: color-link
+    text-decoration: none
+    text-shadow: link-shadow
+    &:hover
+      text-decoration: underline
+  ul, ol, dl
+    ul, ol, dl
+      margin-left: 15px
+      list-style: disc

@@ -27,7 +27,7 @@ copyright:
 #   All website licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></br>
 
 # Sidebar
-sidebar: right
+sidebar: bottom
 widgets:
 - recent_posts
 - archive

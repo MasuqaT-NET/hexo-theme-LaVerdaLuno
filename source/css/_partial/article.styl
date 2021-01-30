@@ -280,6 +280,9 @@
   clearfix()
   position: relative
   @media mq-normal
+    display: grid
+    grid-template-columns: 1fr 1fr
+    column-gap block-margin
     margin: block-margin 0
     &:before
       absolute-center(8px)
@@ -300,21 +303,18 @@
   &:hover
     opacity: 1.0
   @media mq-normal
-    width: 48%
     margin-top: 0
     padding: 10px
 
 #article-nav-newer
   @media mq-normal
-    float: left
+    grid-column-start: 1;
     text-align: right
-    margin-right: 10px
 
 #article-nav-older
   @media mq-normal
-    float: right
+    grid-column-start: 2;
     text-align: left
-    margin-left: 10px
 
 .article-nav-caption
   letter-spacing: 2px
