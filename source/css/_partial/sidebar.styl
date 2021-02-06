@@ -1,7 +1,41 @@
-if sidebar is bottom
-  @import "sidebar-bottom"
-else
-  @import "sidebar-aside"
+#sidebar
+  display: grid
+  gap: block-margin
+  grid-template-columns: 1fr 1fr
+  margin: block-margin 0 0
+  padding: 0 (gutter-width / 2)
+  max-width: content-max-width
+  @media screen and (min-width: (layout-width + gutter-width))
+    display: block
+    margin: 0
+    max-width: 375px
+  @media mq-tablet
+    grid-template-columns: 1fr
+
+.widget-wrap
+  margin: 0
+  @media screen and (min-width: (layout-width + gutter-width))
+    & + &
+      margin: block-margin 0
+
+.widget-title
+  @extend $block-caption
+
+.widget
+  background: lighten(color-pallet-main, 60%)
+  padding: 15px
+  font-family: font-sans
+  a
+    color: color-link
+    text-decoration: none
+    text-shadow: link-shadow
+    &:hover
+      text-decoration: underline
+  ul, ol, dl
+    ul, ol, dl
+      margin-left: 15px
+      list-style: disc
+
 
 .widget
   @extend $base-style

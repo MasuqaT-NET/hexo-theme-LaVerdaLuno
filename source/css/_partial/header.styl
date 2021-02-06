@@ -12,6 +12,12 @@
 #header-outer
   height: 100%
   position: relative
+  margin: 0 auto
+  padding: 0 (gutter-width / 2)
+  max-width: content-max-width
+  box-sizing: border-box;
+  @media screen and (min-width: (layout-width + gutter-width))
+    max-width: (layout-width - gutter-width)
 
 #header-inner
   position: relative
@@ -32,6 +38,7 @@
   position: absolute
   top: 50%
   left: 0
+  width: 100%
   margin-top: logo-size * -0.5
 
 $logo-text

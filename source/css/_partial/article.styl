@@ -1,5 +1,6 @@
 .article
-  margin: block-margin 0
+  & + &
+    margin: block-margin 0 0
 
 .article-inner
   @extend $block
@@ -279,7 +280,7 @@
 #article-nav
   clearfix()
   position: relative
-  margin: block-margin 0
+  margin: block-margin 0 0
   @media mq-normal
     display: grid
     grid-template-columns: 1fr 1fr

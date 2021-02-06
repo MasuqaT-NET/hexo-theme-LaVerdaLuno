@@ -51,15 +51,6 @@ body
   background: color-pallet-accent
   color: color-pallet-background
 
-.outer
-  clearfix()
-  max-width: 800px
-  margin: 0 auto
-  padding: 0 gutter-width
-
-.inner
-  column(columns)
-
 .left, .alignleft
   float: left
 
@@ -88,15 +79,18 @@ body
   .mobile-nav-on &
     left: mobile-nav-width
 
-if sidebar and sidebar isnt bottom
-  #main
-    @media mq-normal
-      column(main-column)
+#layout
+  display: flex
+  padding: block-margin (gutter-width / 2)
+  margin: 0 auto
+  flex-wrap: wrap
+  justify-content: center
+  max-width: layout-width
 
-if sidebar is left
-  @media mq-normal
-    #main
-      float: right
+#main
+  width: content-max-width
+  max-width: content-max-width
+  padding: 0 (gutter-width / 2)
 
 @import "_extend"
 @import "_partial/header"

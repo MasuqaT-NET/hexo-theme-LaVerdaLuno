@@ -66,7 +66,8 @@
 #page-nav
   clearfix()
   @extend $depth-block
-  margin: block-margin auto
+  position relative
+  margin: block-margin auto 0
   background: url(sandpaper-url) lighten(color-pallet-main, 85%)
   font-family: font-ui
   text-align: center
@@ -81,10 +82,12 @@
     &:hover
       background: color-link
       color: color-pallet-background
+  .extend
+    position: absolute
   .prev
-    float: left
+    left: 0
   .next
-    float: right
+    right: 0
   .page-number
     display: inline-block
     @media mq-mobile
