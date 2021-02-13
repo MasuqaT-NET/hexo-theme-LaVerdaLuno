@@ -143,6 +143,21 @@ hexo.extend.filter.register('after_post_render', function (data) {
         $(this).removeClass('built_in').addClass('built_in-noise');
       }
     })
+
+    const hooksRegex = /(use([A-Z][a-z0-9]+)+)/g;
+    const hooksDefinitionRegex = /(use([A-Z][a-z0-9]+)+)\s*=/g;
+
+    // React Hooks
+    $(this).find('.code .line').each(function () {
+      var $line = $(this);
+      const textNodesWithHooks = $line.contents().filter(function () {
+        return this.type === "text" && hooksRegex.test(this.data) && !hooksDefinitionRegex.test(this.data);
+      });
+      $(textNodesWithHooks).each(function () {
+        const match = this.data.match(hooksRegex);
+        $(this).replaceWith(this.data.split(match[0]).join($(`<span class="react_hook">${match[0]}</span>`)));
+      });
+    });
   });
 
   data.content = $('body').html();
