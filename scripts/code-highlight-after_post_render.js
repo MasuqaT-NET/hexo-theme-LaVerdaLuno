@@ -196,6 +196,18 @@ hexo.extend.filter.register('after_post_render', function (data) {
         ));
       });
     });
+
+    // `,` `;`
+    $(this).find('.code .line').each(function () {
+      $(this).contents().filter(function () {
+        return this.type === "text";
+      }).each(function () {
+        $(this).replaceWith(unescape(escape(this.data)
+            .split(",").join($(`<span class="separator">,</span>`))
+            .split(";").join($(`<span class="separator">;</span>`))
+          ));
+      });
+    });
   });
 
   // TypeScript
