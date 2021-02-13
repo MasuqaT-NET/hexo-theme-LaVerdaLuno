@@ -146,7 +146,7 @@ hexo.extend.filter.register('after_post_render', function (data) {
 
     // non-standard function definition
     /// export const fooBar = () => {};
-    const varDefinitionRegex = /const\s+([a-z_$]\w*)\s*=\s*\(/;
+    const varDefinitionRegex = /const\s+([a-zA-Z_$]\w*)\s*=\s*\(/;
     $(this).find('.code .line').each(function () {
       const $$contents = $(this).contents();
       const $exportKeyword = $(this).find('span:contains("export")');
@@ -165,7 +165,13 @@ hexo.extend.filter.register('after_post_render', function (data) {
         return;
       }
 
-      const varNameMatch = ($constKeyword.text() + varNameText.data).match(varDefinitionRegex);
+      let str = $constKeyword.text() + varNameText.data;
+      const $functionKeyword = $constKeyword.next();
+      if ($functionKeyword.length) {
+        str = str + $functionKeyword.text();
+      }
+
+      const varNameMatch = str.match(varDefinitionRegex);
       if(!varNameMatch) {
         return;
       }
