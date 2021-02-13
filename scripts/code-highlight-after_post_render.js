@@ -185,11 +185,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
     const hooksRegex = /(use([A-Z][a-z0-9]+)+)/g;
     const hooksDefinitionRegex = /(use([A-Z][a-z0-9]+)+)\s*=/g;
     $(this).find('.code .line').each(function () {
-      var $line = $(this);
-      const $$textNodesWithHooks = $line.contents().filter(function () {
+      $(this).contents().filter(function () {
         return this.type === "text" && hooksRegex.test(this.data) && !hooksDefinitionRegex.test(this.data);
-      });
-      $$textNodesWithHooks.each(function () {
+      }).each(function () {
         const match = this.data.match(hooksRegex);
         $(this).replaceWith(unescape(escape(this.data)
           .split(match[0]).join($(`<span class="react_hook">${match[0]}</span>`))
@@ -215,27 +213,21 @@ hexo.extend.filter.register('after_post_render', function (data) {
     return $(this).hasClass('typescript');
   }).each(function () {
     // infer
-    $(this).find('.code .line').each(function () {
-      var $line = $(this);
-      const $$textNodesWithInfer = $line.contents().filter(function () {
-        return this.type === "text" && this.data.includes(' infer ');
-      });
-
-      $$textNodesWithInfer.each(function () {
+    $(this).find('.code .line, .code .subst').each(function () {
+      $(this).contents().filter(function () {
+        return this.type === "text" && this.data.match(/\Winfer /);
+      }).each(function () {
         $(this).replaceWith(unescape(escape(this.data)
-          .split(' infer ').join($(` <span class="built_in">infer</span> `))
+          .split('infer ').join($(`<span class="built_in">infer</span> `))
         ))
       });
     });
 
     // keyof
     $(this).find('.code .line').each(function () {
-      var $line = $(this);
-      const $$textNodesWithKeyOf = $line.contents().filter(function () {
+      $(this).contents().filter(function () {
         return this.type === "text" && this.data.includes(' keyof ');
-      });
-
-      $$textNodesWithKeyOf.each(function () {
+      }).each(function () {
         $(this).replaceWith(unescape(escape(this.data)
           .split(' keyof ').join($(` <span class="built_in">keyof</span> `))
         ));
@@ -243,25 +235,10 @@ hexo.extend.filter.register('after_post_render', function (data) {
     });
 
     // unknown
-    $(this).find('.code .line').each(function () {
-      var $line = $(this);
-      const $$textNodesWithUnknown = $line.contents().filter(function () {
+    $(this).find('.code .line, .code .params').each(function () {
+      $(this).contents().filter(function () {
         return this.type === "text" && this.data.includes(' unknown');
-      });
-
-      $$textNodesWithUnknown.each(function () {
-        $(this).replaceWith(unescape(escape(this.data)
-          .split(' unknown').join($(` <span class="built_in">unknown</span>`))
-        ));
-      });
-    });
-    $(this).find('.params').each(function () {
-      var $line = $(this);
-      const $$textNodesWithUnknown = $line.contents().filter(function () {
-        return this.type === "text" && this.data.includes(' unknown');
-      });
-
-      $$textNodesWithUnknown.each(function () {
+      }).each(function () {
         $(this).replaceWith(unescape(escape(this.data)
           .split(' unknown').join($(` <span class="built_in">unknown</span>`))
         ));
