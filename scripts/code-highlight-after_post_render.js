@@ -208,6 +208,28 @@ hexo.extend.filter.register('after_post_render', function (data) {
         $(this).replaceWith(this.data.split(' keyof ').join($(` <span class="built_in">keyof</span> `)))
       });
     });
+
+    // unknown
+    $(this).find('.code .line').each(function () {
+      var $line = $(this);
+      const $$textNodesWithUnknown = $line.contents().filter(function () {
+        return this.type === "text" && this.data.includes(' unknown');
+      });
+
+      $$textNodesWithUnknown.each(function () {
+        $(this).replaceWith(this.data.split(' unknown').join($(` <span class="built_in">unknown</span>`)))
+      });
+    });
+    $(this).find('.params').each(function () {
+      var $line = $(this);
+      const $$textNodesWithUnknown = $line.contents().filter(function () {
+        return this.type === "text" && this.data.includes(' unknown');
+      });
+
+      $$textNodesWithUnknown.each(function () {
+        $(this).replaceWith(this.data.split(' unknown').join($(` <span class="built_in">unknown</span>`)))
+      });
+    });
   });
 
   data.content = $('body').html();
