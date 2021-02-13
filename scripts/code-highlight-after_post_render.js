@@ -181,5 +181,22 @@ hexo.extend.filter.register('after_post_render', function (data) {
     });
   });
 
+  // TypeScript
+  highlights.filter(function () {
+    return $(this).hasClass('typescript');
+  }).each(function () {
+    // infer
+    $(this).find('.code .line').each(function () {
+      var $line = $(this);
+      const $$textNodesWithInfer = $line.contents().filter(function () {
+        return this.type === "text" && this.data.includes(' infer ');
+      });
+
+      $$textNodesWithInfer.each(function () {
+        $(this).replaceWith(this.data.split(' infer ').join($(` <span class="built_in">infer</span> `)))
+      });
+    });
+  });
+
   data.content = $('body').html();
 });
