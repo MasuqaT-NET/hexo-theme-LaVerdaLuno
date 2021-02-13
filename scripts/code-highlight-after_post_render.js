@@ -196,7 +196,7 @@ hexo.extend.filter.register('after_post_render', function (data) {
     });
 
     // `,` `;`
-    $(this).find('.code .line').each(function () {
+    $(this).find('.code .line, .code .params').each(function () {
       $(this).contents().filter(function () {
         return this.type === "text";
       }).each(function () {
