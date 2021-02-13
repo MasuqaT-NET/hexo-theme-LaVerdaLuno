@@ -196,6 +196,18 @@ hexo.extend.filter.register('after_post_render', function (data) {
         $(this).replaceWith(this.data.split(' infer ').join($(` <span class="built_in">infer</span> `)))
       });
     });
+
+    // keyof
+    $(this).find('.code .line').each(function () {
+      var $line = $(this);
+      const $$textNodesWithInfer = $line.contents().filter(function () {
+        return this.type === "text" && this.data.includes(' keyof ');
+      });
+
+      $$textNodesWithInfer.each(function () {
+        $(this).replaceWith(this.data.split(' keyof ').join($(` <span class="built_in">keyof</span> `)))
+      });
+    });
   });
 
   data.content = $('body').html();
