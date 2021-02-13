@@ -176,7 +176,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
         return;
       }
 
-      $(varNameText).replaceWith(varNameText.data.split(varNameMatch[1]).join($(`<span class="function_title">${varNameMatch[1]}</span>`)));
+      $(varNameText).replaceWith(unescape(escape(varNameText.data)
+        .split(varNameMatch[1]).join($(`<span class="function_title">${varNameMatch[1]}</span>`))
+      ));
     });
 
     // React Hooks
@@ -189,7 +191,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
       });
       $$textNodesWithHooks.each(function () {
         const match = this.data.match(hooksRegex);
-        $(this).replaceWith(this.data.split(match[0]).join($(`<span class="react_hook">${match[0]}</span>`)));
+        $(this).replaceWith(unescape(escape(this.data)
+          .split(match[0]).join($(`<span class="react_hook">${match[0]}</span>`))
+        ));
       });
     });
   });
@@ -206,7 +210,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
       });
 
       $$textNodesWithInfer.each(function () {
-        $(this).replaceWith(this.data.split(' infer ').join($(` <span class="built_in">infer</span> `)))
+        $(this).replaceWith(unescape(escape(this.data)
+          .split(' infer ').join($(` <span class="built_in">infer</span> `))
+        ))
       });
     });
 
@@ -218,7 +224,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
       });
 
       $$textNodesWithKeyOf.each(function () {
-        $(this).replaceWith(this.data.split(' keyof ').join($(` <span class="built_in">keyof</span> `)))
+        $(this).replaceWith(unescape(escape(this.data)
+          .split(' keyof ').join($(` <span class="built_in">keyof</span> `))
+        ));
       });
     });
 
@@ -230,7 +238,9 @@ hexo.extend.filter.register('after_post_render', function (data) {
       });
 
       $$textNodesWithUnknown.each(function () {
-        $(this).replaceWith(this.data.split(' unknown').join($(` <span class="built_in">unknown</span>`)))
+        $(this).replaceWith(unescape(escape(this.data)
+          .split(' unknown').join($(` <span class="built_in">unknown</span>`))
+        ));
       });
     });
     $(this).find('.params').each(function () {
@@ -240,10 +250,34 @@ hexo.extend.filter.register('after_post_render', function (data) {
       });
 
       $$textNodesWithUnknown.each(function () {
-        $(this).replaceWith(this.data.split(' unknown').join($(` <span class="built_in">unknown</span>`)))
+        $(this).replaceWith(unescape(escape(this.data)
+          .split(' unknown').join($(` <span class="built_in">unknown</span>`))
+        ));
       });
     });
   });
 
   data.content = $('body').html();
 });
+
+const TOKEN = "!@#$%^";
+
+function escape(str) {
+  if (!str) return;
+  return str.replace(/[<>&"'`]/g, function(match) {
+    const escape = {
+      '<': '&lt;',
+      '>': '&gt;',
+      '&': '&amp;',
+      '"': '&quot;',
+      "'": '&#39;',
+      '`': '&#x60;'
+    };
+    return escape[match].replace(";", TOKEN);
+  });
+}
+
+function unescape(str) {
+  if (!str) return;
+  return str.split(TOKEN).join(";");
+}
