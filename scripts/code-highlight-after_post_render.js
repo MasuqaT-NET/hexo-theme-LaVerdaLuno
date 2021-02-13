@@ -200,11 +200,11 @@ hexo.extend.filter.register('after_post_render', function (data) {
     // keyof
     $(this).find('.code .line').each(function () {
       var $line = $(this);
-      const $$textNodesWithInfer = $line.contents().filter(function () {
+      const $$textNodesWithKeyOf = $line.contents().filter(function () {
         return this.type === "text" && this.data.includes(' keyof ');
       });
 
-      $$textNodesWithInfer.each(function () {
+      $$textNodesWithKeyOf.each(function () {
         $(this).replaceWith(this.data.split(' keyof ').join($(` <span class="built_in">keyof</span> `)))
       });
     });
