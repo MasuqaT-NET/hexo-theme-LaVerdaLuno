@@ -52,8 +52,9 @@ highlight-foreground-dim = darken(highlight-foreground, 20%)
 highlight-comment = hsl(0deg, 0, 50)
 highlight-red = chfy(358deg)
 highlight-orange = chfy(21deg)
+highlight-brown = chfy(37deg)
 highlight-yellow = chfy(40deg)
-highlight-green = chfy(120deg) // chfy(120deg)
+highlight-green = chfy(120deg)
 highlight-aqua = chfy(180deg)
 highlight-blue = chfy(210deg)
 highlight-purple = chfy(300deg)
@@ -307,11 +308,13 @@ pre
         color: highlight-foreground
       .eq
         color: highlight-green
-  .css &
+  .css &, .scss &
     .built_in
       color: highlight-yellow
-    .selector-pseudo
+    .selector-pseudo, .selector-tag, .selector-attr
       color: highlight-yellow
+    .comment
+      color: highlight-brown
   .yaml &
     .attr
       color: highlight-orange
