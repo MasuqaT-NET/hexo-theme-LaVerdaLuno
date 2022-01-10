@@ -13,7 +13,7 @@
   height: 100%
   position: relative
   margin: 0 auto
-  padding: 0 (gutter-width / 2)
+  padding: 0
   max-width: content-max-width
   box-sizing: border-box;
   @media screen and (min-width: (layout-width + gutter-width))
@@ -22,6 +22,7 @@
 #header-inner
   position: relative
   overflow: hidden
+  padding: 0 (gutter-width / 2)
 
 #banner
   position: absolute
@@ -40,6 +41,7 @@
   left: 0
   width: 100%
   margin-top: logo-size * -0.5
+  padding: 0 (gutter-width / 2)
 
 $logo-text
   text-decoration: none
@@ -98,6 +100,7 @@ $nav-link
   font-weight: 300
   font-family: font-ui
   letter-spacing: 1px
+  outline-offset: -10px;
   @media mq-mobile
     display: none
 
