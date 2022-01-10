@@ -139,7 +139,7 @@ hexo.extend.filter.register('after_post_render', function (data) {
       var name = $(this).html();
       if (['document', 'Error'].includes(name)) {
         $(this).removeClass('built_in').addClass('built_in-extra');
-      } else if (['module'].includes(name)) {
+      } else if (['module', 'WeakMap'].includes(name)) {
         $(this).removeClass('built_in').addClass('built_in-noise');
       }
     });
