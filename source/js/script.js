@@ -2,7 +2,8 @@
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,
-    searchAnimDuration = 200;
+    searchAnimDuration = 200,
+    $navSearchButton = $('#nav-search-btn');
 
   var startSearchAnim = function(){
     isSearchAnim = true;
@@ -15,21 +16,41 @@
     }, searchAnimDuration);
   };
 
-  $('#nav-search-btn').on('click', function(){
+  var setSearch = function () {
+    $searchWrap.addClass('on');
+    $searchWrap.find('input, button').removeAttr('tabindex');
+    $navSearchButton.removeAttr('tabindex');
+  };
+
+  var onStartSearch = function () {
     if (isSearchAnim) return;
 
     startSearchAnim();
-    $searchWrap.addClass('on');
+    setSearch();
     stopSearchAnim(function(){
       $('.search-form-input').focus();
     });
-  });
+  };
+  $navSearchButton.on('click', onStartSearch);
+  $navSearchButton.on('focus', onStartSearch);
 
-  $('.search-form-input').on('blur', function(){
-    startSearchAnim();
+  var setDefault = function () {
     $searchWrap.removeClass('on');
+    $searchWrap.find('input, button').attr('tabindex', '-1');
+    $navSearchButton.attr('tabindex', '0');
+  };
+
+  const onEndSearch = function(e){
+    if ($.contains($searchWrap[0], e.relatedTarget)) {
+      return;
+    }
+    startSearchAnim();
+    setDefault();
     stopSearchAnim();
-  });
+  };
+  $searchWrap.on('focusout', onEndSearch);
+
+  setDefault();
 
   // Share
   $('body').on('click', function(){
