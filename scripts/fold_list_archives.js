@@ -67,8 +67,10 @@ function foldListArchivesHelper(options) {
             result += '<ul class="' + className + '-month-list">';
 
             dataOfYear.forEach(function (dataOfMonth) {
+                var month = dataOfMonth.month;
+                var monthStr = month < 10 ? '0' + month : '' + month;
                 result += '<li class="' + className + '-month-list-item">';
-                result += '<a class="' + className + '-month-list_link" href="' + self.url_for(archiveDir + '/' + dataOfMonth.year + '/' + dataOfMonth.month + '/') + '">';
+                result += '<a class="' + className + '-month-list_link" href="' + self.url_for(archiveDir + '/' + dataOfMonth.year + '/' + monthStr + '/') + '">';
                 result += transform ? transform(dataOfMonth.monthName) : dataOfMonth.monthName;
                 result += '</a>';
                 result += '<span class="' + className + '-month-list-count">(' + dataOfMonth.count + ')</span>';
